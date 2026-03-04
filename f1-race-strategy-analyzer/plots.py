@@ -303,10 +303,11 @@ def fig_race_results(results: pd.DataFrame) -> go.Figure:
             "<extra></extra>"
         ),
     ))
+    _exclude = {"yaxis", "margin"}
     fig.update_layout(
+        **{k: v for k, v in BASE_LAYOUT.items() if k not in _exclude},
         xaxis_title="Points",
         yaxis=dict(autorange="reversed", gridcolor=GRID, zerolinecolor=GRID),
-        **{k: v for k, v in BASE_LAYOUT.items() if k != "yaxis"},
         title=dict(text="Race Results", font=dict(size=16)),
         margin=dict(l=60, r=30, t=50, b=50),
     )
