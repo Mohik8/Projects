@@ -4,7 +4,13 @@ A genetic algorithm that evolves neural-network weights to play Snake, with **no
 
 Watch it learn in real time through a **Streamlit** dashboard: live fitness curves, per-generation best agent preview, and a full animated replay of the champion agent.
 
-![Dashboard](screenshots/dashboard.png)
+| Idle Dashboard | Sidebar Controls |
+|---|---|
+| ![Idle](screenshots/01_idle_dashboard.png) | ![Sidebar](screenshots/02_sidebar_controls.png) |
+
+| Mid-Training | Replay Section |
+|---|---|
+| ![Training](screenshots/03_mid_training.png) | ![Replay](screenshots/04_replay_section.png) |
 
 ---
 

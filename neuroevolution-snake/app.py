@@ -28,46 +28,61 @@ st.set_page_config(
     initial_sidebar_state = "expanded",
 )
 
-# Custom dark CSS
+# Custom CSS - white base with per-section color accents
 st.markdown("""
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-  html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+  html, body, [class*="css"] { font-family: 'Inter', sans-serif; background: #ffffff; }
   .block-container { padding-top: 1.2rem; padding-bottom: 1rem; }
+
+  /* ── Sidebar: deep indigo ── */
   [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #080812 0%, #0d0d1e 100%);
-    border-right: 1px solid rgba(255,255,255,0.05);
+    background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%) !important;
+    border-right: none;
   }
-  .stat-card {
-    background: linear-gradient(135deg, rgba(0,255,136,0.06) 0%, rgba(79,195,247,0.04) 100%);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 18px 14px;
-    text-align: center;
-    margin-bottom: 8px;
-    backdrop-filter: blur(12px);
-    transition: border-color 0.2s;
+  [data-testid="stSidebar"] * { color: #e0e7ff !important; }
+  [data-testid="stSidebar"] .stSlider > div > div > div { background: #6366f1 !important; }
+  [data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.15) !important; }
+
+  /* ── Stats strip ── */
+  .stats-strip {
+    display: flex; align-items: center; gap: 0;
+    background: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 8px; margin-bottom: 12px;
   }
-  .stat-card:hover { border-color: rgba(0,255,136,0.3); }
-  .stat-value {
-    font-size: 1.9rem; font-weight: 700; letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #00ff88, #4fc3f7);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  .stat-item { flex: 1; text-align: center; padding: 0 12px; }
+  .stat-item + .stat-item { border-left: 1px solid #e2e8f0; }
+  .stat-num { font-size: 1.65rem; font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; }
+  .stat-lbl { font-size: 0.68rem; color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
+
+  /* ── Section wrappers ── */
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px; padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
   }
-  .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
-  h1 { background: linear-gradient(135deg, #00ff88 0%, #4fc3f7 100%);
-       -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .section-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.5px;
+    color: #475569; text-transform: uppercase; margin: 0;
+  }
+  .section-wrap {
+    background: #fafafa; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 14px 14px 8px 14px; margin-bottom: 6px;
+  }
+  h1 { color: #1e293b !important; }
   .stButton > button {
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.5px !important;
-    transition: all 0.2s !important;
+    border-radius: 10px !important; font-weight: 600 !important;
+    letter-spacing: 0.5px !important; transition: all 0.2s !important;
   }
-  .stButton > button:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,255,136,0.25) !important; }
+  .stButton > button:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(99,102,241,0.25) !important; }
   [data-testid="stMetric"] {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 12px; padding: 12px 16px;
+    background: #ffffff; border: 1.5px solid #e8ecf2;
+    border-radius: 12px; padding: 12px 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   }
 </style>
 """, unsafe_allow_html=True)
@@ -142,14 +157,14 @@ if start_btn:
 # Helper: build plotly snake board
 # ──────────────────────────────────────────────────────────────────────
 _COLORSCALE = [
-    [0.00, "#0d0d1a"],   # empty
-    [0.25, "#0d0d1a"],
-    [0.26, "#ff4444"],   # food (value=1)
-    [0.50, "#ff4444"],
-    [0.51, "#00cc66"],   # body (value=2)
-    [0.75, "#00cc66"],
-    [0.76, "#00ff88"],   # head (value=3)
-    [1.00, "#00ff88"],
+    [0.00, "#e8ecf2"],   # empty (light grid)
+    [0.25, "#e8ecf2"],
+    [0.26, "#ef4444"],   # food (value=1)
+    [0.50, "#ef4444"],
+    [0.51, "#22c55e"],   # body (value=2)
+    [0.75, "#22c55e"],
+    [0.76, "#16a34a"],   # head (value=3)
+    [1.00, "#16a34a"],
 ]
 
 def make_board_fig(grid: np.ndarray, title: str = "") -> go.Figure:
@@ -161,9 +176,9 @@ def make_board_fig(grid: np.ndarray, title: str = "") -> go.Figure:
         xgap=1, ygap=1,
     ))
     fig.update_layout(
-        title          = dict(text=title, font=dict(color="#aaa", size=13)),
-        paper_bgcolor  = "#0d0d1a",
-        plot_bgcolor   = "#0d0d1a",
+        title          = dict(text=title, font=dict(color="#64748b", size=12)),
+        paper_bgcolor  = "#fafafa",
+        plot_bgcolor   = "#ffffff",
         margin         = dict(l=5, r=5, t=30, b=5),
         height         = 350,
         xaxis          = dict(visible=False),
@@ -193,10 +208,10 @@ def make_animated_fig(frames: list[np.ndarray], score: int) -> go.Figure:
         layout = go.Layout(
             title         = dict(
                 text=f"Best Agent Replay  |  Score: {score}",
-                font=dict(color="#00ff88", size=15)
+                font=dict(color="#1e293b", size=15)
             ),
-            paper_bgcolor = "#0d0d1a",
-            plot_bgcolor  = "#0d0d1a",
+            paper_bgcolor = "#fffbeb",
+            plot_bgcolor  = "#fef3c7",
             height        = 420,
             margin        = dict(l=5, r=5, t=40, b=5),
             xaxis         = dict(visible=False),
@@ -236,29 +251,37 @@ st.caption(
     "no gradients. Fitness = score\u00b2 x 1000 + steps_survived."
 )
 
-# Stat cards row
-col_gen, col_best_score, col_best_fit, col_avg_fit, col_pop = st.columns(5)
-ph_gen        = col_gen.empty()
-ph_best_score = col_best_score.empty()
-ph_best_fit   = col_best_fit.empty()
-ph_avg_fit    = col_avg_fit.empty()
-ph_pop        = col_pop.empty()
-
-def render_stat(placeholder, value, label, color="#00ff88"):
-    placeholder.markdown(
-        f'<div class="stat-card">'
-        f'<div class="stat-value" style="color:{color}">{value}</div>'
-        f'<div class="stat-label">{label}</div>'
-        f'</div>',
-        unsafe_allow_html=True,
-    )
+# Stats strip (single placeholder, one HTML row)
+ph_stats = st.empty()
 
 def refresh_stats(gen, best_score, best_fit, avg_fit, pop):
-    render_stat(ph_gen,        gen,                    "Generation")
-    render_stat(ph_best_score, f"{best_score:.1f}",    "Best Score",   "#00ff88")
-    render_stat(ph_best_fit,   f"{best_fit:,.0f}",     "Best Fitness", "#4fc3f7")
-    render_stat(ph_avg_fit,    f"{avg_fit:,.0f}",      "Avg Fitness",  "#ffb74d")
-    render_stat(ph_pop,        pop,                    "Population",   "#ce93d8")
+    ph_stats.markdown(
+        f"""
+        <div class="stats-strip">
+          <div class="stat-item">
+            <div class="stat-num" style="color:#1e293b">{gen}</div>
+            <div class="stat-lbl">Generation</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" style="color:#16a34a">{best_score:.1f}</div>
+            <div class="stat-lbl">Best Score</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" style="color:#2563eb">{best_fit:,.0f}</div>
+            <div class="stat-lbl">Best Fitness</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" style="color:#f97316">{avg_fit:,.0f}</div>
+            <div class="stat-lbl">Avg Fitness</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" style="color:#7c3aed">{pop}</div>
+            <div class="stat-lbl">Population</div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 refresh_stats(
     st.session_state.gen,
@@ -274,12 +297,28 @@ st.divider()
 left_col, right_col = st.columns([3, 2])
 
 with left_col:
-    st.subheader("Fitness over Generations")
+    st.markdown(
+        '<div class="section-wrap">'
+        '<div class="section-header">'
+        '<div class="section-dot" style="background:#3b82f6"></div>'
+        '<span class="section-title">Fitness over Generations</span>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
     chart_ph = st.empty()
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with right_col:
-    st.subheader("Best Agent (last generation)")
+    st.markdown(
+        '<div class="section-wrap">'
+        '<div class="section-header">'
+        '<div class="section-dot" style="background:#22c55e"></div>'
+        '<span class="section-title">Best Agent</span>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
     board_ph = st.empty()
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Progress + log
 progress_ph = st.empty()
@@ -290,24 +329,24 @@ log_ph      = st.empty()
 # ──────────────────────────────────────────────────────────────────────
 def draw_chart(history):
     if not history:
-        chart_ph.info("Training will start when you press ▶  Start Training.")
+        chart_ph.caption("Training will start when you press ▶  Start Training.")
         return
     df = pd.DataFrame(history)
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=df["gen"], y=df["best_fitness"], name="Best",
-        line=dict(color="#00ff88", width=2),
+        line=dict(color="#2563eb", width=2),
     ))
     fig.add_trace(go.Scatter(
         x=df["gen"], y=df["avg_fitness"], name="Average",
-        line=dict(color="#ffb74d", width=1.5, dash="dot"),
+        line=dict(color="#f97316", width=1.5, dash="dot"),
     ))
     fig.update_layout(
-        paper_bgcolor="#0d0d1a", plot_bgcolor="#111128",
-        font=dict(color="#ccc"),
-        legend=dict(bgcolor="rgba(0,0,0,0)"),
-        xaxis=dict(title="Generation", gridcolor="#222"),
-        yaxis=dict(title="Fitness",    gridcolor="#222"),
+        paper_bgcolor="#fafafa", plot_bgcolor="#ffffff",
+        font=dict(color="#475569"),
+        legend=dict(bgcolor="rgba(255,255,255,0.9)", bordercolor="#e2e8f0", borderwidth=1),
+        xaxis=dict(title="Generation", gridcolor="#f1f5f9", linecolor="#e2e8f0"),
+        yaxis=dict(title="Fitness",    gridcolor="#f1f5f9", linecolor="#e2e8f0"),
         margin=dict(l=10, r=10, t=10, b=10),
         height=320,
     )
