@@ -208,28 +208,28 @@ body {
   margin-bottom: 5px;
 }
 
-/* ── Dropdowns ────────────────────────────────────────── */
-.Select-control {
+/* ── Dropdowns (Dash 4) ──────────────────────────────── */
+.dash-dropdown-wrapper, .dash-dropdown-trigger, .dash-dropdown-grid-container {
   background: #0f0f1a !important;
   border: 1px solid #252535 !important;
   border-radius: 6px !important;
   color: #dcdce8 !important;
   min-height: 34px !important;
 }
-.Select-control:hover { border-color: #e8002d55 !important; }
-.Select.is-focused > .Select-control { border-color: #e8002d88 !important; box-shadow: none !important; }
-.Select-value-label, .Select-placeholder { color: #9898b0 !important; font-size: 0.82rem !important; }
-.Select-single > .Select-control .Select-value .Select-value-label { color: #dcdce8 !important; }
-.Select-input, .Select-input input {
+.dash-dropdown-wrapper:hover .dash-dropdown-trigger { border-color: #e8002d55 !important; }
+.dash-dropdown-wrapper:focus-within .dash-dropdown-trigger { border-color: #e8002d88 !important; box-shadow: none !important; }
+.dash-dropdown-value-item, .dash-dropdown-placeholder { color: #9898b0 !important; font-size: 0.82rem !important; }
+.dash-dropdown-value .dash-dropdown-value-item { color: #dcdce8 !important; }
+.dash-dropdown-search {
   color: #dcdce8 !important;
   background: transparent !important;
   font-size: 0.82rem !important;
 }
-.Select-menu-outer { background: #0f0f1a !important; border: 1px solid #252535 !important; border-top: none !important; z-index: 9999 !important; }
-.Select-option { background: transparent !important; color: #9898b0 !important; font-size: 0.82rem !important; padding: 8px 12px !important; }
-.Select-option:hover, .Select-option.is-focused { background: rgba(232,0,45,0.1) !important; color: #fff !important; }
-.Select-option.is-selected { background: rgba(232,0,45,0.2) !important; color: #fff !important; }
-.Select-arrow { border-top-color: #555570 !important; }
+.dash-dropdown-content, .dash-dropdown-options { background: #0f0f1a !important; border: 1px solid #252535 !important; z-index: 9999 !important; }
+.dash-options-list-option, .dash-dropdown-option { background: transparent !important; color: #9898b0 !important; font-size: 0.82rem !important; padding: 8px 12px !important; }
+.dash-options-list-option:hover, .dash-options-list-option:focus { background: rgba(232,0,45,0.1) !important; color: #fff !important; }
+.dash-options-list-option.dash-dropdown-option--selected { background: rgba(232,0,45,0.2) !important; color: #fff !important; }
+.dash-dropdown-trigger-icon { color: #555570 !important; }
 
 /* ── Primary button ───────────────────────────────────── */
 .btn-primary-f1, .btn-primary-f1:focus {
@@ -518,26 +518,26 @@ body {
   margin-bottom: 5px;
 }
 
-/* ── Dropdowns ──────────────────────────────────── */
-.Select-control, .Select-menu-outer {
+/* ── Dropdowns (Dash 4) ─────────────────────────── */
+.dash-dropdown-wrapper, .dash-dropdown-trigger, .dash-dropdown-grid-container,
+.dash-dropdown-content, .dash-dropdown-options {
   background-color: #0f0f18 !important;
   border-color: #2a2a3e !important;
   color: #e0e0e0 !important;
 }
-.Select-value-label { color: #e0e0e0 !important; }
-.Select-input, .Select-input input {
+.dash-dropdown-value-item { color: #e0e0e0 !important; }
+.dash-dropdown-search {
   color: #e0e0e0 !important;
   background: transparent !important;
 }
-.Select-menu { background: #0f0f18 !important; }
-.Select-option { color: #e0e0e0 !important; background: #0f0f18 !important; }
-.Select-option:hover, .Select-option.is-focused {
+.dash-options-list-option, .dash-dropdown-option { color: #e0e0e0 !important; background: #0f0f18 !important; }
+.dash-options-list-option:hover, .dash-options-list-option:focus {
   background: rgba(232, 0, 45, 0.15) !important;
   color: #fff !important;
 }
-.Select-option.is-selected { background: rgba(232, 0, 45, 0.25) !important; }
-.Select-arrow { border-top-color: #666680 !important; }
-.Select--single > .Select-control .Select-value { color: #e0e0e0 !important; }
+.dash-options-list-option.dash-dropdown-option--selected { background: rgba(232, 0, 45, 0.25) !important; }
+.dash-dropdown-trigger-icon { color: #666680 !important; }
+.dash-dropdown-value .dash-dropdown-value-item { color: #e0e0e0 !important; }
 
 /* ── Buttons ────────────────────────────────────── */
 .btn-f1-primary {
