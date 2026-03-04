@@ -31,27 +31,44 @@ with sync_playwright() as pw:
     ctx = browser.new_context(viewport={"width": 1440, "height": 900})
     page = ctx.new_page()
 
-    # ── 1. Idle dashboard ────────────────────────────────────────────
-    print("[1/4] Idle dashboard...")
+    # Load once — sidebar starts EXPANDED (per config)
     page.goto(URL, wait_until="domcontentloaded")
     wait_for_app(page)
-    snap(page, "01_idle_dashboard")
 
-    # ── 2. Sidebar open with sliders ─────────────────────────────────
+    # ── 2. Sidebar open (shoot FIRST while sidebar is definitely open) ─
     print("[2/4] Sidebar controls...")
-    toggle = page.query_selector("[data-testid='collapsedControl']")
-    if toggle:
-        toggle.click()
-        page.wait_for_timeout(600)
-    sidebar = page.query_selector("[data-testid='stSidebar']")
-    if sidebar:
-        sidebar.evaluate("el => el.scrollTo(0, 240)")
-        page.wait_for_timeout(400)
+    # Scroll sidebar down to show mutation + training sliders
+    page.wait_for_selector("[data-testid='stSidebar']", timeout=10_000)
+    page.evaluate("""
+        const sb = document.querySelector('[data-testid="stSidebar"] > div');
+        if (sb) sb.scrollTop = 280;
+    """)
+    page.wait_for_timeout(600)
     snap(page, "02_sidebar_controls")
 
-    # ── 3. Mid-training (click Start, wait ~12 s for a few gens) ─────
+    # ── 1. Idle dashboard (hide sidebar via JS) ──────────────────────
+    print("[1/4] Idle dashboard...")
+    page.evaluate("""
+        const sb = document.querySelector('[data-testid="stSidebar"]');
+        if (sb) sb.style.display = 'none';
+        const toggle = document.querySelector('[data-testid="collapsedControl"]');
+        if (toggle) toggle.style.display = 'none';
+    """)
+    page.wait_for_timeout(400)
+    page.evaluate("window.scrollTo(0, 0)")
+    page.wait_for_timeout(300)
+    snap(page, "01_idle_dashboard")
+
+    # Restore sidebar for training
+    page.evaluate("""
+        const sb = document.querySelector('[data-testid="stSidebar"]');
+        if (sb) sb.style.display = '';
+        const toggle = document.querySelector('[data-testid="collapsedControl"]');
+        if (toggle) toggle.style.display = '';
+    """)
+
+    # ── 3. Mid-training ───────────────────────────────────────────────
     print("[3/4] Mid-training...")
-    # Re-open sidebar to reach start button area first, then close for chart
     page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_timeout(300)
     start_btn = page.locator("button:has-text('Start Training')").first
@@ -60,16 +77,11 @@ with sync_playwright() as pw:
     start_btn.click()
     print("   Waiting 14 s for a few generations...")
     page.wait_for_timeout(14_000)
-    # Collapse sidebar so chart is fully visible
-    toggle = page.query_selector("[data-testid='collapsedControl']")
-    if toggle:
-        toggle.click()
-        page.wait_for_timeout(500)
     page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_timeout(600)
     snap(page, "03_mid_training")
 
-    # ── 4. Stop + scroll to replay section ───────────────────────────
+    # ── 4. Stop + replay section ──────────────────────────────────────
     print("[4/4] Replay section...")
     stop_btn = page.locator("button:has-text('Stop')").first
     if stop_btn.is_visible():
