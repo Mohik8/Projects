@@ -15,6 +15,7 @@ venv/
 # F1 cache
 .f1_cache/
 _test.py
+RESUME_NOTES.md
 
 # OS
 .DS_Store
