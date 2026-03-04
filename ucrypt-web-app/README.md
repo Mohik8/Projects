@@ -1,8 +1,8 @@
 ﻿# UCrypt — Secure Encryption Web Application
 
-UCrypt is a full-stack web application that lets authenticated users **encrypt and decrypt text and files** using industry-standard algorithms (AES-256-GCM, Triple DES, Blowfish). It was built as a lab project for **SENG 426 (Software Quality Assurance & Testing)** at UVic, Summer 2025, covering the full software development lifecycle — from CI/CD setup and requirements engineering through automated testing, performance analysis, and hands-on **security hardening**.
+UCrypt is a full-stack web application that lets authenticated users **encrypt and decrypt text and files** using industry-standard algorithms (AES-256-GCM, Triple DES, Blowfish). The stack is Java Spring Boot on the backend and Angular on the frontend, with a full CI/CD pipeline on Azure DevOps.
 
-The project started as an existing codebase with known weaknesses. Over 5 lab deliverables, security vulnerabilities were identified, assessed, and remediated — treating it the way a real security audit would.
+I worked on this project across the full SDLC — setting up the pipeline, writing automated tests, load testing, and doing a security audit with OWASP ZAP followed by hands-on **vulnerability remediation**.
 
 ---
 
@@ -39,18 +39,6 @@ ucrypt-web-app/
 ├── testing/              # Selenium / TestNG automated test suite
 └── azure-pipelines.yml   # CI/CD pipeline (Azure DevOps)
 ```
-
----
-
-## Lab Context (SENG 426 — Summer 2025)
-
-| Deliverable | Topic | Weight |
-|---|---|---|
-| Part 1 | CI/CD Pipeline Setup (Azure DevOps + Docker) | 2% |
-| Part 2 | Requirements & Backlog (user stories, acceptance criteria) | 5% |
-| Part 3 | Automated Functional Testing (Selenium + TestNG) | 14% |
-| Part 4 | Performance & Scalability Testing (JMeter) | 14% |
-| Part 5 | Security Testing (OWASP ZAP + remediation) | 10% |
 
 ---
 
