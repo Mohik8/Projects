@@ -1,0 +1,234 @@
+<div class="modal-content" *ngIf="!hidePopup">
+  <div class="modal-header pb-0 border-bottom-0">
+    <button
+      #signUpCloseBtn
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <img src="./assets/images/logo-auth.svg" alt="" style="width: 75px" />
+      <h4 class="primary-txt f-bold mt-3">Sign Up</h4>
+    </div>
+    <form [formGroup]="signUpForm" class="auth-form px-5">
+      <!-- Name -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0"
+          >Name<span class="primary-txt">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          [ngClass]="{
+            'is-invalid': submitted && signUpForm.get('name')?.errors
+          }"
+          id="signUpName"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('name')?.errors?.required"
+        >
+          this field is required
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0"
+          >Email<span class="primary-txt">*</span></label
+        >
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && signUpForm.get('email')?.errors
+          }"
+          name=""
+          id="loginEmail"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('email')?.errors?.required"
+        >
+          this field is required
+        </div>
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('email')?.errors?.email"
+        >
+          Please enter a valid email!
+        </div>
+      </div>
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0"
+          >Password<span class="primary-txt">*</span></label
+        >
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && signUpForm.get('password')?.errors
+          }"
+          name=""
+          id="loginPassword"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('password')?.errors?.required"
+        >
+          this field is required
+        </div>
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('password')?.errors?.minlength"
+        >
+          Password must be at least 6 characters!
+        </div>
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('password')?.errors?.maxlength"
+        >
+          Password cannot exceed 24 characters!
+        </div>
+      </div>
+      <!-- Password Strength Meter -->
+      <!-- Password Strength Meter -->
+      <div *ngIf="signUpForm.get('password')?.value">
+        <div class="mb-2">
+          <label class="form-label mb-1">Password Strength</label>
+          <div class="progress" style="height: 8px">
+            <div
+              class="progress-bar"
+              [ngClass]="{
+                'bg-danger': passwordStrengthLabel === 'Weak',
+                'bg-warning': passwordStrengthLabel === 'Medium',
+                'bg-success': passwordStrengthLabel === 'Strong',
+                'bg-info': passwordStrengthLabel === 'Super Strong'
+              }"
+              [style.width.%]="
+                passwordStrengthLabel === 'Weak'
+                  ? 25
+                  : passwordStrengthLabel === 'Medium'
+                  ? 50
+                  : passwordStrengthLabel === 'Strong'
+                  ? 80
+                  : passwordStrengthLabel === 'Super Strong'
+                  ? 100
+                  : 0
+              "
+            ></div>
+          </div>
+          <small class="text-muted">
+            {{ passwordStrengthLabel }}
+          </small>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0"
+          >Confirm Password<span class="primary-txt">*</span></label
+        >
+        <input
+          type="password"
+          class="form-control"
+          formControlName="confirmPassword"
+          [ngClass]="{
+            'is-invalid': submitted && signUpForm.get('confirmPassword')?.errors
+          }"
+          id="signUpConfirmPassword"
+        />
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('confirmPassword')?.errors?.required"
+        >
+          this field is required
+        </div>
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('confirmPassword')?.errors?.mismatch"
+        >
+          Confirmed Password and Password must match!
+        </div>
+      </div>
+      <!-- Select Role -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0"
+          >Select Role<span class="primary-txt">*</span></label
+        >
+        <select
+          class="form-select"
+          formControlName="role"
+          [ngClass]="{
+            'is-invalid': submitted && signUpForm.get('role')?.errors
+          }"
+          id="signUpRole"
+        >
+          <option *ngFor="let role of roles" [value]="role.name">
+            {{ role.displayName }}
+          </option>
+        </select>
+
+        <div
+          class="invalid-feedback"
+          *ngIf="signUpForm.get('role')?.errors?.required"
+        >
+          this field is required
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mb-3 mt-4 mx-3">
+        <button (click)="onSignUpSubmit()" class="btn btn-secondary btn-submit">
+          Sign Up
+        </button>
+      </div>
+
+      <!-- No Account!! Login Link -->
+      <div class="pt-4">
+        <span class="fs-14 text-mutued"
+          >Already have an account why doesn't this update?
+          <a
+            class="redirect-auth"
+            data-bs-toggle="modal"
+            data-bs-target="#signUp"
+            >Login Now</a
+          >
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div
+  *ngIf="showLogin"
+  class="modal fade auth"
+  id="signUp"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  role="dialog"
+  aria-labelledby="modalTitleId"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
+    role="document"
+  >
+    <app-login-page></app-login-page>
+  </div>
+</div>

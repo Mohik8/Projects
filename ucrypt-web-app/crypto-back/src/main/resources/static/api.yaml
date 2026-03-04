@@ -1,0 +1,807 @@
+openapi: 3.0.0
+
+info:
+  version: v0.1.0
+  title: UCrypt API
+
+servers:
+  - url: http://20.108.185.182:8888/ucrypt/api/v1
+    description: test development server
+
+components:
+  parameters:
+    offsetParam:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before starting to collect the result set.
+
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 120
+        default: 20
+      description: The numbers of items to return.
+
+    sortParam:
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+      description: The sort property, if the sort property starts with `<` it will sort ASC, or `>` it will sort DESC.
+
+    filterParam:
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+      description: Filter results using RSQL queries.
+
+  responses:
+    Error:
+      description: Error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      properties:
+        code:
+          type: string
+          description: Error code if any.
+        message:
+          type: string
+          description: General error message
+        details:
+          type: string
+          description: Error details.
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Violation'
+        extraData:
+          type: string
+          description: Extra data
+
+    Violation:
+      description: Violation in API request
+      discriminator:
+        propertyName: type
+        mapping:
+          ConstraintViolation: '#/components/schemas/ConstraintViolation'
+      properties:
+        type:
+          description: Violation type
+          type: string
+        message:
+          description: Violation message
+          type: string
+
+    ConstraintViolation:
+      allOf:
+        - $ref: '#/components/schemas/Violation'
+        - type: object
+          properties:
+            property:
+              type: string
+              description: Property name
+
+    RegisterUserRequest:
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          $ref: '#/components/schemas/RegisterUserRole'
+        jobTitle:
+          type: string
+      required:
+        - name
+        - email
+        - password
+        - role
+
+    RegisterUserRole:
+      type: string
+      enum:
+        - USER
+        - EMPLOYEE
+        - ADMIN
+
+    LoginUserRequest:
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    LoginUserResponse:
+      properties:
+        name:
+          type: string
+        accessToken:
+          type: string
+
+    UserDetails:
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        displayName:
+          type: string
+
+    UserList:
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+
+    UserStatus:
+      type: string
+      enum:
+        - created
+        - active
+        - inactive
+
+    EncryptionAlgorithm:
+      properties:
+        name:
+          type: string
+        displayName:
+          type: string
+
+    CreateEncryptionKey:
+      properties:
+        value:
+          type: string
+        encryptionAlgorithm:
+          $ref: '#/components/schemas/EncryptionAlgorithmEnum'
+
+    EncryptionKeyList:
+      properties:
+        id:
+          type: integer
+          format: int64
+        value:
+          type: string
+
+    GenerateEncryptionKeyRequest:
+      properties:
+        encryptionAlgorithm:
+          $ref: '#/components/schemas/EncryptionAlgorithmEnum'
+
+    EncryptionAlgorithmEnum:
+      type: string
+      enum:
+        - aes
+        - triple_des
+        - blowfish
+
+    GenerateEncryptionKeyResponse:
+      properties:
+        key:
+          type: string
+
+    EncryptTextRequest:
+      properties:
+        key:
+          type: string
+        text:
+          type: string
+        encryptionAlgorithm:
+          $ref: '#/components/schemas/EncryptionAlgorithmEnum'
+      required:
+        - key
+        - text
+        - encryptionAlgorithm
+
+    EncryptTextResponse:
+      properties:
+        encryptedText:
+          type: string
+
+    DecryptTextRequest:
+      properties:
+        key:
+          type: string
+        encryptedText:
+          type: string
+        encryptionAlgorithm:
+          $ref: '#/components/schemas/EncryptionAlgorithmEnum'
+      required:
+        - key
+        - encryptedText
+        - encryptionAlgorithm
+
+    DecryptTextResponse:
+      properties:
+        decryptedText:
+          type: string
+
+    EncryptionFile:
+      description: File Result Of Encryption Or Decryption
+      type: string
+      format: byte
+
+    EncryptFileRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        file:
+          $ref: '#/components/schemas/EncryptionFile'
+        fileName:
+          type: string
+        fileType:
+          type: string
+        encryptionAlgorithm:
+          $ref: '#/components/schemas/EncryptionAlgorithmEnum'
+      required:
+        - key
+        - file
+        - fileName
+        - encryptionAlgorithm
+
+    EncryptFileResponse:
+      description: Output File Encryption
+      type: string
+      format: binary
+
+    DecryptFileRequest:
+      properties:
+        key:
+          type: string
+        encryptedFile:
+          $ref: '#/components/schemas/EncryptionFile'
+        encryptedFileName:
+          type: string
+        encryptedFileType:
+          type: string
+        encryptionAlgorithm:
+          $ref: '#/components/schemas/EncryptionAlgorithmEnum'
+      required:
+        - key
+        - encryptedFile
+        - encryptedFileName
+        - encryptionAlgorithm
+
+    DecryptFileResponse:
+      description: Output File Decryption
+      type: string
+      format: binary
+
+    FileList:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        path:
+          type: string
+        contentType:
+          type: string
+
+    FileUpload:
+      description: FileUpload model for creation of file
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+      required:
+        - file
+
+    FileDownloadRequest:
+      description: File download request model
+      type: object
+      properties:
+        filePath:
+          type: string
+      required:
+        - filePath
+
+    UpdateUserRoleRequest:
+      type: object
+      properties:
+        newRole:
+          $ref: '#/components/schemas/RegisterUserRole'
+
+    EmployeesList:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+
+
+paths:
+  /users/register:
+    post:
+      tags:
+        - Users
+      summary: Register User
+      requestBody:
+        description: User Register Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+      operationId: register
+      responses:
+        201:
+          description: Created
+        default:
+          $ref: '#/components/responses/Error'
+
+  /users/login:
+    put:
+      tags:
+        - Users
+      summary: Login User
+      requestBody:
+        description: User Login Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+      operationId: login
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUserResponse'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get List Of Users
+      operationId: getUsers
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserList'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /users/current:
+    get:
+      tags:
+        - Users
+      summary: Get Current User Details
+      operationId: getCurrentUserDetails
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /users/{id}/active:
+    put:
+      tags:
+        - Users
+      summary: Activate User
+      parameters:
+        - name: id
+          description: User Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: activateUser
+      responses:
+        200:
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - Users
+      summary: Deactivate User
+      parameters:
+        - name: id
+          description: User Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      operationId: deactivateUser
+      responses:
+        200:
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+
+  /users/{id}/role:
+    put:
+      tags:
+        - Users
+      summary: Update User Role
+      operationId: updateUserRole
+      parameters:
+        - name: id
+          description: User Id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update User Role Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRoleRequest'
+      responses:
+        200:
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+
+
+  /encryption-keys/generate:
+    put:
+      tags:
+        - Encryption Keys
+      summary: Generate Encryption key
+      operationId: generateEncryptionKey
+      requestBody:
+        description: Generate Encryption Key Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateEncryptionKeyRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateEncryptionKeyResponse'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /users/current/encryption-keys:
+    post:
+      tags:
+        - Users
+      summary: Save User Encryption Key
+      operationId: createEncryptionKeyForCurrentUser
+      requestBody:
+        description: Generate Encryption Key Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEncryptionKey'
+      responses:
+        200:
+          description: OK
+        default:
+          $ref: '#/components/responses/Error'
+    get:
+      tags:
+        - Users
+      summary: Get Current User Encryption Keys
+      operationId: getCurrentUserEncryptionKeys
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EncryptionKeyList'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /roles/new-users:
+    get:
+      tags:
+        - Roles
+      summary: Get List Of Roles for new users
+      operationId: getRolesForNewUsers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /encryption-algorithms:
+    get:
+      tags:
+        - Encryption Algorithms
+      summary: Get List Of Available Encryption Algorithms
+      operationId: getEncryptionAlgorithms
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EncryptionAlgorithm'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /encryption/text/encrypt:
+    put:
+      tags:
+        - Encryption
+      summary: Encrypt Text
+      operationId: encryptText
+      requestBody:
+        description: Encrypt Text Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncryptTextRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptTextResponse'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /encryption/text/decrypt:
+    put:
+      tags:
+        - Encryption
+      summary: Decrypt Text
+      operationId: decryptText
+      requestBody:
+        description: Decrypt Text Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecryptTextRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecryptTextResponse'
+        default:
+          $ref: '#/components/responses/Error'
+
+  /encryption/file/encrypt:
+    put:
+      tags:
+        - Encryption
+      summary: Encrypt File
+      operationId: encryptFile
+      requestBody:
+        description: Encrypt File Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncryptFileRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/EncryptFileResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Error'
+
+  /encryption/file/decrypt:
+    put:
+      tags:
+        - Encryption
+      summary: Decrypt File
+      operationId: decryptFile
+      requestBody:
+        description: Decrypt File Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecryptFileRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/DecryptFileResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Error'
+
+  /files:
+    post:
+      tags:
+        - Files
+      summary: Create File
+      operationId: createFile
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileUpload'
+      responses:
+        201:
+          description: Created
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Error'
+    get:
+      tags:
+        - Files
+      summary: Get List Of Files
+      operationId: getFiles
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FileList'
+        default:
+          $ref: '#/components/responses/Error'
+
+
+  /files/download:
+    put:
+      tags:
+        - Files
+      summary: Download File With File Path
+      operationId: downloadFile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileDownloadRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            multipart/form-data:
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Error'
+
+  /employees:
+    get:
+      tags:
+        - Employees
+      summary: Get List Of Employees
+      operationId: getEmployees
+      parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/filterParam'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeesList'
+        default:
+          $ref: '#/components/responses/Error'

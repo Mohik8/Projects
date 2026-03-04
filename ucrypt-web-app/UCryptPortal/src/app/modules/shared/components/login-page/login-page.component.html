@@ -1,0 +1,70 @@
+<div class="modal-content">
+  <div class="modal-header pb-0 border-bottom-0">
+    <button #loginCloseBtn type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <img src="./assets/images/logo-auth.svg" alt="" style="width: 75px;">
+      <h4 class="primary-txt f-bold mt-3">Login</h4>
+    </div>
+    <form [formGroup]="loginForm" class="auth-form px-5">
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0">Email<span class="primary-txt">*</span></label>
+        <input formControlName="email" type="email" class="form-control"  [ngClass]="{
+          'is-invalid':
+            submitted && loginForm.get('email')?.errors}" name="" id="loginEmail">
+
+            <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors?.required">
+              this field is required
+            </div>
+
+            <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors?.email">
+              Please enter a valid email!
+            </div>
+
+      </div>
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="" class="form-label mb-0">Password<span class="primary-txt">*</span></label>
+        <input formControlName="password" type="password" class="form-control" [ngClass]="{
+          'is-invalid':
+            submitted && loginForm.get('password')?.errors}" name="" id="loginPassword">
+
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors?.required">
+              this field is required
+            </div>
+
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors?.minlength">
+              Password must be at least 6 characters!
+            </div>
+
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors?.maxlength">
+              Password cannot exceed 24 characters!
+            </div>
+
+
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mb-3 mt-4 pt-2 mx-3">
+        <button (click)="onLoginSumbit()" class="btn btn-secondary btn-submit">Login</button>
+      </div>
+
+      <!-- No Account!! Sign up Link -->
+      <div class="pt-4">
+        <span class="fs-14 text-mutued">Not Registered Yet?
+          <a class="redirect-auth" data-bs-toggle="modal" data-bs-target="#login" >Create New Account</a>
+        </span>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<div *ngIf="showSignup" class="modal fade auth" id="login" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <app-sign-up-page></app-sign-up-page>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+pool:
+  name: Azure Pipelines
+  demands: maven
+
+jobs:
+  - job: BackendBuild
+    displayName: "Backend Build"
+    steps:
+      # - task: SonarQubePrepare@5
+      #   inputs:
+      #     SonarQube: sonarQube
+      #     scannerMode: "Other"
+      #     extraProperties: |
+      #       # Additional properties that will be passed to the scanner,
+      #       # Put one key=value per line, example:
+      #       # sonar.exclusions=**/*.bin
+      #       sonar.projectKey=ucrypt
+      #       sonar.projectName=ucrypt
+      - task: Maven@4
+        displayName: BackendBuild
+        inputs:
+          mavenPomFile: "crypto-back/pom.xml"
+          goals: "package -DskipTests"
+          publishJUnitResults: false
+          javaHomeOption: "JDKVersion"
+          jdkVersionOption: "1.17"
+          jdkArchitectureOption: "x64"
+          mavenOptions: "-Xmx3072m"
+          sonarQubeRunAnalysis: false
+      # - task: SonarQubePublish@5
+      #   inputs:
+      #     pollingTimeoutSec: "300"
+  - job: FrontendBuild
+    displayName: "Build Frontend"
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "16.x"
+        displayName: "Install Node.js"
+
+      - script: |
+          cd UCryptPortal
+          npm install
+          npm install -g @angular/cli@15.0.1
+          ng build --configuration=docker
+        displayName: "Build Angular App"
+
+  - job: DockerImageBuild
+    displayName: "Build Docker Images"
+    dependsOn:
+      - BackendBuild
+      - FrontendBuild
+    steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: "ucrypt_back_DR"
+          repository: "sleepsleep1000/backend"
+          command: "buildAndPush"
+          Dockerfile: "crypto-back/Dockerfile"
+          tags: "latest"
+        displayName: "Build Backend Docker Image"
+
+      - task: Docker@2
+        inputs:
+          containerRegistry: "ucrypt_front_DR"
+          repository: "sleepsleep1000/frontend"
+          command: "buildAndPush"
+          Dockerfile: "UCryptPortal/Dockerfile"
+          tags: "latest"
+        displayName: "Build Frontend Docker Image"

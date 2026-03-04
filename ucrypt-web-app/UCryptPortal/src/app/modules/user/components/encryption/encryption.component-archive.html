@@ -1,0 +1,294 @@
+<ngx-spinner type="ball-scale-multiple">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
+
+<div class="enc-page">
+  <div class="container">
+    <!-- Page Title -->
+    <h2 class="secondary-txt text-center mb-0">File & Text Encryption</h2>
+    <p class="fs-11 text-center text-muted">Encrypt and Decrypt any file with any format.</p>
+
+    <!-- Two Methods of Encryption [upload or type-text]-->
+    <form [formGroup]="form">
+      <div class="row mx-0">
+        <!-- Upload Section -->
+        <div class="col-md-6">
+          <h5 class="title">
+            <img src="./assets/images/icons/upload.svg" alt="">
+            Upload File
+          </h5>
+          <!-- Upload Card -->
+          <div class="upload-card">
+            <div class="card-header fs-18">
+              Choose any file with max size 50 MB
+            </div>
+            <div class="card-body">
+              <!-- DIV One -->
+              <div class="upload-div">
+                <p-fileUpload #fileUpload [customUpload]="true" (uploadHandler)="onUpload($event)" [auto]="true" chooseLabel="Browse" [maxFileSize]="50000000"></p-fileUpload>
+              </div>
+
+
+              <!-- DIV Two -->
+              <div class="upload-result">
+                <div class="p-3 d-flex align-items-center justify-content-between border-bottom">
+                  <div class="p-3">
+                    <img src="./assets/images/icons/file-resource.svg" alt="" class="me-2" width="16">
+                    <span class="fs-14">UranusApp-requirements.docx</span>
+                  </div>
+                  <span class="fs-12">44.05 KB</span>
+                  <span class="status">Ready</span>
+                  <a routerLink="">
+                    <img src="./assets/images/icons/close.svg" alt="" width="16">
+                  </a>
+                </div>
+                <div class="p-3">
+                  <div class="p-3">
+                    <!-- Encryption Technique -->
+                    <div class="mb-3">
+                      <label for="" class="form-label fs-11 mb-0 f-bold">Encryption Technique</label>
+                      <select class="form-select w-50 fs-12" name="" id="">
+                        <option selected>-- Select One --</option>
+                        <option value="">-- option --</option>
+                        <option value="">-- option --</option>
+                        <option value="">-- option --</option>
+                      </select>
+                    </div>
+                    <!-- Encryption Key -->
+                    <div class="mb-3">
+                      <label for="" class="form-label fs-11 mb-1">
+                        <img src="./assets/images/icons/encryption-key.svg" alt="" style="width: 20px; vertical-align: text-bottom;">
+                        <span class="f-bold ms-2">Encryption Key</span>
+                        <span class="fs-10 text-mutued mx-1">You can type your own encryption key or</span>
+                        <button class="btn btn-sm btn-secondary fs-10 b-30">Auto Generate</button>
+                      </label>
+                      <div class="enc-group">
+                        <!-- Textarea KEY -->
+                        <textarea class="form-control no-resize fs-10" name="" id="" rows="3">B&E)H@McQfTjWnZr4u7x!z%C*FJaNdRgUkXp2s5v8y/BD(G+KbPeShVmYq3t6w9z$C&FH@McQfTjWnZr4u7x!A%D*GKaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3</textarea>
+                        <!-- Copy & Save Buttons -->
+                        <div class="enc-key-options">
+                          <!-- Copy Button -->
+                          <button type="button" class="btn" pTooltip="Copy Text" tooltipPosition="top">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20.208" height="23.009" viewBox="0 0 20.208 23.009">
+                              <path id="Icon_awesome-copy" data-name="Icon awesome-copy"
+                                d="M14.005,19.608v1.751a1.05,1.05,0,0,1-1.05,1.05H1.05A1.05,1.05,0,0,1,0,21.358V5.252A1.05,1.05,0,0,1,1.05,4.2H4.2V17.157a2.454,2.454,0,0,0,2.451,2.451Zm0-15.056V0H6.653A1.05,1.05,0,0,0,5.6,1.05V17.157a1.05,1.05,0,0,0,1.05,1.05h11.9a1.05,1.05,0,0,0,1.05-1.05V5.6H15.056A1.053,1.053,0,0,1,14.005,4.552ZM19.3,3.194,16.414.308A1.05,1.05,0,0,0,15.671,0h-.265V4.2h4.2V3.936a1.05,1.05,0,0,0-.308-.743Z"
+                                transform="translate(0.3 0.3)" fill="none" stroke="#1d4395" stroke-width="0.6" />
+                            </svg>
+                          </button>
+                          <!-- Save Button -->
+                          <button type="button" class="btn" pTooltip="Save the key to your profile" tooltipPosition="top">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18.264" height="20.914" viewBox="0 0 18.264 20.914">
+                              <g id="Icon_feather-save" data-name="Icon feather-save" transform="translate(0.35 0.35)">
+                                <path id="Path_83845" data-name="Path 83845" d="M20.112,24.714H6.452A2.114,2.114,0,0,1,4.5,22.468V6.746A2.114,2.114,0,0,1,6.452,4.5H17.185l4.879,5.615V22.468A2.114,2.114,0,0,1,20.112,24.714Z" transform="translate(-4.5 -4.5)" fill="none" stroke="#1d4395"
+                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                                <path id="Path_83846" data-name="Path 83846" d="M20.258,28.484V19.5H10.5v8.984" transform="translate(-6.597 -8.27)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                                <path id="Path_83847" data-name="Path 83847" d="M10.5,4.5v5.615h7.806" transform="translate(-6.597 -4.5)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                              </g>
+                            </svg>
+
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Button Submit -->
+                  <div class="text-right">
+                    <button type="submit" class="btn btn-primary submit px-4 f-bold">
+                      Encrypt
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24.08" height="24.08" viewBox="0 0 24.08 24.08">
+                        <path id="Icon_awesome-arrow-alt-circle-right" data-name="Icon awesome-arrow-alt-circle-right"
+                          d="M12.6.563A12.04,12.04,0,1,1,.563,12.6,12.038,12.038,0,0,1,12.6.563ZM6.971,14.739H12.6v3.442a.583.583,0,0,0,1,.413l5.549-5.578a.577.577,0,0,0,0-.82L13.6,6.612a.583.583,0,0,0-1,.413v3.442H6.971a.584.584,0,0,0-.583.583v3.107A.584.584,0,0,0,6.971,14.739Z"
+                          transform="translate(-0.563 -0.563)" fill="#fff" />
+                      </svg>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+              <!-- DIV Three -->
+              <div class="encryption-result">
+                <div class="p-3 d-flex align-items-center border-bottom">
+                  <img src="./assets/images/icons/enhanced-encryption.svg" alt="" class="me-2">
+                  <span class="title">Encrypted File</span>
+                </div>
+                <div class="p-3 d-flex align-items-center justify-content-between border-bottom">
+                  <div class="p-3">
+                    <img src="./assets/images/icons/file-resource.svg" alt="" class="me-2" width="16">
+                    <span class="fs-14">UranusApp-requirements.docx</span>
+                  </div>
+                  <span class="fs-12">44.05 KB</span>
+                  <span class="status">Finished</span>
+                </div>
+                <div class="p-3">
+                  <div class="p-3">
+                    <!-- Encryption Key -->
+                    <div class="mb-3">
+                      <label for="" class="form-label fs-11 mb-1">
+                        <img src="./assets/images/icons/encryption-key.svg" alt="" style="width: 20px; vertical-align: text-bottom;">
+                        <span class="f-bold ms-2">Encryption Key</span>
+                      </label>
+                      <div class="enc-group">
+                        <!-- Textarea KEY -->
+                        <textarea class="form-control no-resize fs-10" name="" id="" rows="3">B&E)H@McQfTjWnZr4u7x!z%C*FJaNdRgUkXp2s5v8y/BD(G+KbPeShVmYq3t6w9z$C&FH@McQfTjWnZr4u7x!A%D*GKaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3</textarea>
+                        <!-- Copy & Save Buttons -->
+                        <div class="enc-key-options">
+                          <!-- Copy Button -->
+                          <button type="button" class="btn" pTooltip="Copy Text" tooltipPosition="top">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20.208" height="23.009" viewBox="0 0 20.208 23.009">
+                              <path id="Icon_awesome-copy" data-name="Icon awesome-copy"
+                                d="M14.005,19.608v1.751a1.05,1.05,0,0,1-1.05,1.05H1.05A1.05,1.05,0,0,1,0,21.358V5.252A1.05,1.05,0,0,1,1.05,4.2H4.2V17.157a2.454,2.454,0,0,0,2.451,2.451Zm0-15.056V0H6.653A1.05,1.05,0,0,0,5.6,1.05V17.157a1.05,1.05,0,0,0,1.05,1.05h11.9a1.05,1.05,0,0,0,1.05-1.05V5.6H15.056A1.053,1.053,0,0,1,14.005,4.552ZM19.3,3.194,16.414.308A1.05,1.05,0,0,0,15.671,0h-.265V4.2h4.2V3.936a1.05,1.05,0,0,0-.308-.743Z"
+                                transform="translate(0.3 0.3)" fill="none" stroke="#1d4395" stroke-width="0.6" />
+                            </svg>
+                          </button>
+                          <!-- Save Button -->
+                          <button type="button" class="btn" pTooltip="Save the key to your profile" tooltipPosition="top">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18.264" height="20.914" viewBox="0 0 18.264 20.914">
+                              <g id="Icon_feather-save" data-name="Icon feather-save" transform="translate(0.35 0.35)">
+                                <path id="Path_83845" data-name="Path 83845" d="M20.112,24.714H6.452A2.114,2.114,0,0,1,4.5,22.468V6.746A2.114,2.114,0,0,1,6.452,4.5H17.185l4.879,5.615V22.468A2.114,2.114,0,0,1,20.112,24.714Z" transform="translate(-4.5 -4.5)" fill="none" stroke="#1d4395"
+                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                                <path id="Path_83846" data-name="Path 83846" d="M20.258,28.484V19.5H10.5v8.984" transform="translate(-6.597 -8.27)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                                <path id="Path_83847" data-name="Path 83847" d="M10.5,4.5v5.615h7.806" transform="translate(-6.597 -4.5)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                              </g>
+                            </svg>
+
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <!-- Type a Text Section -->
+        <div class="col-md-6">
+          <h5 class="title">
+            <img src="./assets/images/icons/input.svg" alt="" style="width: 22px;">
+            Text Input
+          </h5>
+          <!-- Type Card -->
+          <div class="type-card">
+
+            <!-- Text area to type your input -->
+            <div class="mb-3">
+              <label for="" class="form-label fs-11 mb-0">Insert a text below to encrypt:</label>
+              <textarea class="form-control no-resize" formControlName="textToEncrypt" [ngClass]="{
+                'is-invalid':
+                  submitted && form.get('textToEncrypt')?.errors}" id="" rows="3"></textarea>
+
+              <div class="invalid-feedback" *ngIf="form.get('textToEncrypt')?.errors?.required">
+                this field is required
+              </div>
+
+            </div>
+
+            <div class="px-3">
+              <!-- Encryption Technique -->
+              <div class="mb-3">
+                <label for="" class="form-label fs-11 mb-0 f-bold">Encryption Technique</label>
+                <select class="form-select w-50 fs-12" formControlName="encryptionTechnique" [ngClass]="{
+                  'is-invalid':
+                    submitted && form.get('encryptionTechnique')?.errors}" name="" id="">
+                  <option *ngFor="let algo of algorithms" [value]='algo.name'>
+                    {{algo.displayName}}
+                  </option>
+                </select>
+
+                <div class="invalid-feedback" *ngIf="form.get('encryptionTechnique')?.errors?.required">
+                  this field is required
+                </div>
+              </div>
+              <!-- Encryption Key -->
+              <div class="mb-3">
+                <label for="" class="form-label fs-11 mb-1">
+                  <img src="./assets/images/icons/encryption-key.svg" alt="" style="width: 20px; vertical-align: text-bottom;">
+                  <span class="f-bold ms-2">Encryption Key</span>
+                  <span class="fs-10 text-mutued mx-1">You can type your own encryption key or</span>
+                  <button class="btn btn-sm btn-secondary fs-10 b-30" (click)="generateKey()">Auto Generate</button>
+                </label>
+                <div class="enc-group">
+                  <!-- Textarea KEY -->
+                  <textarea class="form-control no-resize fs-10" formControlName="encryptionKey" [ngClass]="{
+                    'is-invalid':
+                      submitted && form.get('encryptionKey')?.errors}" id="" rows="3">
+                  </textarea>
+
+                  <div class="invalid-feedback" *ngIf="form.get('encryptionKey')?.errors?.required">
+                    this field is required
+                  </div>
+
+                  <!-- Copy & Save Buttons -->
+                  <div class="enc-key-options">
+                    <!-- Copy Button -->
+                    <button type="button" class="btn" pTooltip="Copy Text" tooltipPosition="top">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20.208" height="23.009" viewBox="0 0 20.208 23.009">
+                        <path id="Icon_awesome-copy" data-name="Icon awesome-copy"
+                          d="M14.005,19.608v1.751a1.05,1.05,0,0,1-1.05,1.05H1.05A1.05,1.05,0,0,1,0,21.358V5.252A1.05,1.05,0,0,1,1.05,4.2H4.2V17.157a2.454,2.454,0,0,0,2.451,2.451Zm0-15.056V0H6.653A1.05,1.05,0,0,0,5.6,1.05V17.157a1.05,1.05,0,0,0,1.05,1.05h11.9a1.05,1.05,0,0,0,1.05-1.05V5.6H15.056A1.053,1.053,0,0,1,14.005,4.552ZM19.3,3.194,16.414.308A1.05,1.05,0,0,0,15.671,0h-.265V4.2h4.2V3.936a1.05,1.05,0,0,0-.308-.743Z"
+                          transform="translate(0.3 0.3)" fill="none" stroke="#1d4395" stroke-width="0.6" />
+                      </svg>
+                    </button>
+                    <!-- Save Button -->
+                    <button type="button" class="btn" pTooltip="Save the key to your profile" tooltipPosition="top" (click)="saveKey()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18.264" height="20.914" viewBox="0 0 18.264 20.914">
+                        <g id="Icon_feather-save" data-name="Icon feather-save" transform="translate(0.35 0.35)">
+                          <path id="Path_83845" data-name="Path 83845" d="M20.112,24.714H6.452A2.114,2.114,0,0,1,4.5,22.468V6.746A2.114,2.114,0,0,1,6.452,4.5H17.185l4.879,5.615V22.468A2.114,2.114,0,0,1,20.112,24.714Z" transform="translate(-4.5 -4.5)" fill="none" stroke="#1d4395"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                          <path id="Path_83846" data-name="Path 83846" d="M20.258,28.484V19.5H10.5v8.984" transform="translate(-6.597 -8.27)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                          <path id="Path_83847" data-name="Path 83847" d="M10.5,4.5v5.615h7.806" transform="translate(-6.597 -4.5)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7" />
+                        </g>
+                      </svg>
+
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="">
+                  <img src="./assets/images/icons/output.svg" alt="" style="width: 22px;">
+                  Text Output
+                </h5>
+                <p class="fs-10"></p>
+              </div>
+              <!-- Button Submit -->
+              <div class="text-right">
+                <button type="submit" class="btn btn-primary submit px-4 f-bold" (click)="encrypt()">
+                  Encrypt
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24.08" height="24.08" viewBox="0 0 24.08 24.08">
+                    <path id="Icon_awesome-arrow-alt-circle-right" data-name="Icon awesome-arrow-alt-circle-right"
+                      d="M12.6.563A12.04,12.04,0,1,1,.563,12.6,12.038,12.038,0,0,1,12.6.563ZM6.971,14.739H12.6v3.442a.583.583,0,0,0,1,.413l5.549-5.578a.577.577,0,0,0,0-.82L13.6,6.612a.583.583,0,0,0-1,.413v3.442H6.971a.584.584,0,0,0-.583.583v3.107A.584.584,0,0,0,6.971,14.739Z"
+                      transform="translate(-0.563 -0.563)" fill="#fff" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Output -->
+            <div class="enc-group">
+              <!-- Textarea Output -->
+              <textarea class="form-control no-resize fs-10 output" formControlName="encryptedText" id="" rows="4"></textarea>
+              <!-- Copy Button -->
+              <div class="enc-key-options">
+                <button type="button" class="btn" pTooltip="Copy Text" tooltipPosition="top">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20.208" height="23.009" viewBox="0 0 20.208 23.009">
+                    <path id="Icon_awesome-copy" data-name="Icon awesome-copy"
+                      d="M14.005,19.608v1.751a1.05,1.05,0,0,1-1.05,1.05H1.05A1.05,1.05,0,0,1,0,21.358V5.252A1.05,1.05,0,0,1,1.05,4.2H4.2V17.157a2.454,2.454,0,0,0,2.451,2.451Zm0-15.056V0H6.653A1.05,1.05,0,0,0,5.6,1.05V17.157a1.05,1.05,0,0,0,1.05,1.05h11.9a1.05,1.05,0,0,0,1.05-1.05V5.6H15.056A1.053,1.053,0,0,1,14.005,4.552ZM19.3,3.194,16.414.308A1.05,1.05,0,0,0,15.671,0h-.265V4.2h4.2V3.936a1.05,1.05,0,0,0-.308-.743Z"
+                      transform="translate(0.3 0.3)" fill="none" stroke="#1d4395" stroke-width="0.6" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

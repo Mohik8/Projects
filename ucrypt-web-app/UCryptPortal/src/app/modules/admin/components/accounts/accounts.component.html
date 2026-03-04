@@ -1,0 +1,52 @@
+<!-- Tabs for each account -->
+<ul class="nav nav-tabs accounts-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link fs-15 active" id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">
+      New Accounts
+      <span class="numer">{{newAccountCount}}</span>
+    </button>
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <button class="nav-link fs-15" id="staff-tab" data-bs-toggle="tab" data-bs-target="#staff" type="button" role="tab" aria-controls="staff" aria-selected="false">
+      Staff Accounts
+      <span class="numer">{{staffCount}}</span>
+    </button>
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <button class="nav-link fs-15" id="reg-tab" data-bs-toggle="tab" data-bs-target="#reg" type="button" role="tab" aria-controls="reg" aria-selected="false">
+      Reg. Users Accounts
+      <span class="numer">{{ userAccountCount}}</span>
+    </button>
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <button class="nav-link fs-15" id="All-tab" data-bs-toggle="tab" data-bs-target="#All" type="button" role="tab" aria-controls="All" aria-selected="false">
+      All Accounts
+      <span class="numer">{{allUsersCount}}</span>
+    </button>
+  </li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content accounts-tab-content">
+  <!-- new Tab-->
+  <div class="tab-pane active" id="new" role="tabpanel" aria-labelledby="new-tab">
+    <app-new-accounts [data]="newAccount" [cols]="Cols" (activateAccount)="activateAccount($event)" (deactivateAccount)="deactivateAccount($event)"></app-new-accounts>
+  </div>
+  <!-- staff Tab -->
+  <div class="tab-pane" id="staff" role="tabpanel" aria-labelledby="staff-tab">
+    <app-staff-account [data]="staff" [cols]="Cols"></app-staff-account>
+  </div>
+  <!-- reg Tab -->
+  <div class="tab-pane" id="reg" role="tabpanel" aria-labelledby="reg-tab">
+    <app-user-account [data]="userAccount" [cols]="Cols" ></app-user-account>
+  </div>
+  <!-- all Tab -->
+  <div class="tab-pane" id="All" role="tabpanel" aria-labelledby="All-tab">
+    <app-all-account [data]="allUsers" [cols]="Cols"></app-all-account>
+  </div>
+
+</div>

@@ -96,6 +96,40 @@ python app.py
 
 ---
 
+## 🔒 UCrypt — Secure Encryption Web App  `Java Spring Boot · Angular · OWASP ZAP · Selenium`
+
+A full-stack encryption portal where authenticated users can **encrypt and decrypt text and files** using industry-standard ciphers. Built as part of a rigorous software engineering course (SENG 426) covering the full SDLC — from requirements through security hardening.
+
+**Highlights**
+- Multi-algorithm encryption: **AES-256-GCM**, **Triple DES**, and **Blowfish** — user-selectable per operation
+- Eliminated a **path traversal vulnerability** (CWE-22) found during OWASP ZAP security scan
+- Replaced insecure CBC mode with **AES/GCM** authenticated encryption to prevent tampering
+- Input validation and sanitization applied across all API endpoints
+- Role-based access control: admin dashboard for user management, scoped permissions per role
+- **CI/CD pipeline** on Azure DevOps — automated build, test, and Docker image push on every commit
+- **95+ Selenium/TestNG automated tests** covering login, encryption flows, file upload, and edge cases
+- Performance & load testing with Apache JMeter; stress-tested to 200 concurrent users
+- SonarQube static analysis integrated into the pipeline — zero critical findings at merge
+
+**Security work specifically**
+- Ran OWASP ZAP active scan → triaged findings → patched path traversal + insecure direct object reference
+- Replaced MD5 password hashing with BCrypt (cost factor 12)
+- Added CSRF token validation on all state-changing endpoints
+- Enforced HTTPS-only cookies (`Secure`, `HttpOnly`, `SameSite=Strict`)
+
+```bash
+# Backend
+cd ucrypt-web-app/crypto-back && mvn spring-boot:run
+
+# Frontend
+cd ucrypt-web-app/UCryptPortal && npm install && ng serve
+# Open http://localhost:4200
+```
+
+→ [ucrypt-web-app/](ucrypt-web-app/)
+
+---
+
 ## Tech matrix
 
 | Project | Language | Key libs | Domain |
@@ -103,4 +137,4 @@ python app.py
 | Encrypted Password Manager | C | OpenSSL | Security / Systems |
 | AI Document Assistant | Python | LangChain, ChromaDB, Ollama | AI / NLP |
 | Go Task Manager | Go | Bubble Tea, Lip Gloss | CLI / TUI |
-| F1 Race Strategy Analyzer | Python | FastF1, Plotly, Dash | Data Vis / Sports Analytics |
+| F1 Race Strategy Analyzer | Python | FastF1, Plotly, Dash | Data Vis / Sports Analytics |`n| UCrypt Encryption Portal | Java / TypeScript | Spring Boot, Angular, Selenium, OWASP ZAP | Cybersecurity / Full-Stack |

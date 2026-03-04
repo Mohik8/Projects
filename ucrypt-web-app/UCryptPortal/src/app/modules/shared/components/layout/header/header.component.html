@@ -1,0 +1,94 @@
+<header class="header">
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">
+        <img src="./assets/images/logo.svg" alt="">
+      </a>
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+          <!-- <li class="nav-item mx-3">
+            <a class="nav-link f-b" *ngIf="isUserLoggedIn()" [routerLink]="['/encryption']" [routerLinkActive]="['is-active']">Encrypt</a>
+          </li> -->
+          <!-- <li class="nav-item mx-3">
+            <a class="nav-link f-b" *ngIf="isUserLoggedIn()"  [routerLink]="['/decryption']" [routerLinkActive]="['is-active']">Decrypt</a>
+          </li> -->
+          <li class="nav-item mx-3" *ngIf="isUserLoggedIn()">
+            <a class="nav-link f-b" [routerLink]="['/index']" [routerLinkActive]="['is-active']">Home</a>
+          </li>
+          <li class="nav-item mx-3" *ngIf="isUserLoggedIn()">
+            <a class="nav-link f-b" [routerLink]="['/company']" [routerLinkActive]="['is-active']">Company</a>
+          </li>
+          <li class="nav-item mx-3" *ngIf="isUserLoggedIn()">
+            <a class="nav-link f-b" [routerLink]="['/products']" [routerLinkActive]="['is-active']">Products</a>
+          </li>
+          <li class="nav-item mx-3" *ngIf="isUserLoggedIn()">
+            <a class="nav-link f-b" [routerLink]="['/media']" [routerLinkActive]="['is-active']">Media</a>
+          </li>
+          <li class="nav-item mx-3" *ngIf="isUserLoggedIn()">
+            <a class="nav-link f-b"  [routerLink]="['/contact']" [routerLinkActive]="['is-active']">Contact</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="isUserLoggedIn()">
+            <a class="nav-link dropdown-toggle" href="javascript:;" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Try Ucrypt
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownId">
+              <a class="dropdown-item" [routerLink]="['/encryption']">
+                Encryption
+              </a>
+              <a class="dropdown-item" [routerLink]="['/decryption']">
+                Decryption
+              </a>
+            </div>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link f-b" *ngIf="isUserLoggedIn() && activateResource " [routerLink]="['/resources']" [routerLinkActive]="['is-active']">Resources</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link f-b" *ngIf="isUserLoggedIn() && activateAdminPanel" [routerLink]="['/admin/accounts']" [routerLinkActive]="['is-active']">Admin Panel</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center my-2 my-lg-0">
+          <a *ngIf="!isUserLoggedIn()" class="btn fs-14 btn-primary me-2 my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#login">Sign up for free</a>
+          <a *ngIf="!isUserLoggedIn()" class="btn fs-14 btn-outline-secondary me-2 my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#signUp">Log In</a>
+          <ul *ngIf="isUserLoggedIn()" class="mt-2 mt-lg-0 profile-ul">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="javascript:;" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="./assets/images/icons/profile.svg" alt="">
+                {{userName}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownId">
+                <a class="dropdown-item" [routerLink]="['/profile']">
+                  <img src="./assets/images/icons/my-profile.svg" alt="">
+                  My Profile
+                </a>
+                <a class="dropdown-item" (click)="onLogoutClicked()">
+                  <img src="./assets/images/icons/logout.svg" alt="">
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<ngx-spinner type="ball-scale-multiple">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
+<!-- Modal Body for Sign up -->
+<div class="modal fade auth" id="login" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <app-sign-up-page></app-sign-up-page>
+  </div>
+</div>
+
+<!-- Modal Body for Login -->
+<div class="modal fade auth" id="signUp" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <app-login-page></app-login-page>
+  </div>
+</div>

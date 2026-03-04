@@ -1,0 +1,106 @@
+<div class="home">
+  <!-- Landing -->
+  <div class="land d-flex align-items-center">
+    <div class="container">
+      <div class="row mx-0">
+        <div class="col-md-7 d-flex align-items-center">
+          <div>
+            <h1 class="mb-4">Uranus File & Text Encryption and
+              Decryption</h1>
+            <p class="fs-14 mt-2">Uranus is an online encryption/decryption service
+              <br>
+              freely available through Uranus website
+            </p>
+            <div class="mt-5 pt-4">
+              <a (click)="goToEncryption()" class="btn btn-primary mb-3">Try Encryption</a>
+              <a (click)="goToDecryption()" class="btn btn-secondary mt-2">Try Decryption</a>
+              <a #MyModal [hidden]="true" class="btn btn-secondary mt-2" data-bs-toggle="modal" data-bs-target="#signUp">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 d-flex align-items-center justify-content-center">
+          <img src="./assets/images/bigdata-security.svg" alt="" style="width: 90%;">
+        </div>
+      </div>
+    </div>
+    <a class="down text-center text-white" href="#Technology"><i class="las la-long-arrow-alt-down text-white"></i></a>
+  </div>
+
+  <!-- Technology -->
+  <div class="container tech">
+    <div class="row mx-0 py-5">
+      <div class="col-md-5 pe-5">
+        <img src="./assets/images/about.svg" alt="" style="width: 93%;">
+      </div>
+      <div class="col-md-7">
+        <span class="bo-sec"></span>
+        <h3 class="text-uppercase secondary-txt">Technology</h3>
+        <p class="fs-16 f-semi w-75">Uranus provides cutting edge solutions to protect your network and valuable assets in the cyberspace.</p>
+        <p class="fs-14">
+          The flagship product of the company is UranusVPN, an advanced VPN solution that provides stronger
+          protection for local network and allows individual users to bypass institutionalized firewalls deployed in
+          many authoritarian countries to restrict browsing capabilities of Internet users.Uranus also provides UCRYPT, an online encryption system, free of charge to its valuable customers that
+          allows encrypting documents and generating and storing safely their encryption keys.
+        </p>
+        <div class="row mx-0 mt-5 pt-4">
+          <div class="col-md-12 ps-0">
+            <div class="card">
+              <img src="./assets/images/icons/mission.svg" alt="" width="75">
+              <h5 class="secondary-txt">Mission</h5>
+              <p class="fs-14">Our mission is to provide you with secure communications by means of a full remote access product
+                portfolio.
+                <br>
+                Our products are designed to be top notch and state of the art in regard to function and security.
+                In addition, they are developed to set global technological standards in external business
+                communication
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="features" id="Technology">
+    <div class="container">
+      <p class="fs-14 secondary-txt mb-5 w-50">
+        The point where your network meets the Internet is the busiest and most critical intersection in your
+        entire enterprise. It needs to be used efficiently and secured properly. Uranus Inc. provides effective
+        solutions to help you address these challenges and conduct your business in a secure and dependable
+        environment.
+      </p>
+      <div class="row mx-0">
+        <!-- Feature One -->
+        <div class="col-md-4 text-center px-5">
+          <img src="./assets/images/icons/format-suported.svg" alt="" class="feat-svg">
+          <h5>300+ Formats Supported</h5>
+          <p class="fs-11">Uranus support more than 200 different encryption & decryption between more than 300 different file formats.</p>
+        </div>
+        <!-- Feature Two -->
+        <div class="col-md-4 text-center px-5">
+          <img src="./assets/images/icons/fast-easy.svg" alt="" class="feat-svg">
+          <h5>Fast and easy</h5>
+          <p class="fs-11">Uranus aim to do the encryption &
+            decryption process in under 1-2 minutes.</p>
+        </div>
+        <!-- Feature Three -->
+        <div class="col-md-4 text-center px-5">
+          <img src="./assets/images/icons/security.svg" alt="" class="feat-svg" style="width: 42px;">
+          <h5>Security guaranteed</h5>
+          <p class="fs-11">We delete uploaded files instantly and converted ones after 24 hours. No one has access to your files and privacy is 100% guaranteed.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Body for Login -->
+<div class="modal fade auth" id="signUp" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <app-login-page></app-login-page>
+  </div>
+</div>

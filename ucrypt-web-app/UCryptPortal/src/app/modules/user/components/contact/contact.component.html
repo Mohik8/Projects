@@ -1,0 +1,137 @@
+<div class="bread-sec about">
+  <div>
+    <h1>Contact Us</h1>
+    <nav class="breadcrumb">
+      <a class="breadcrumb-item" href="#">Home</a>
+      <span class="breadcrumb-item active" aria-current="page">Contact</span>
+    </nav>
+  </div>
+</div>
+
+<div class="contact container">
+  <div class="git_in_touch py-5">
+    <div class="row mx-0 mt-5">
+      <div class="col-md-5">
+
+        <!-- address box -->
+        <div class="d-flex justify-content-start align-items-start mb-4 shadow p-3 add-tabs">
+          <img src="./assets/images/icons/map.svg" alt="">
+          <div class="ms-4">
+            <h6 class="f_B primary-txt fs-20 f-semi">Address</h6>
+            <p class="fs-16">Corporate headquarters – Los Angeles, CA 84010</p>
+          </div>
+        </div>
+
+        <!-- address box -->
+        <div class="d-flex justify-content-start align-items-start mb-4 shadow p-3 add-tabs active">
+          <img src="./assets/images/icons/email.svg" alt="">
+          <div class="ms-4">
+            <h6 class="f_B fs-20 f-semi">Email</h6>
+            <p class="fs-16">info@uranus.com</p>
+          </div>
+        </div>
+
+        <!-- address box -->
+        <div class="d-flex justify-content-start align-items-start mb-4 shadow p-3 add-tabs">
+          <img src="./assets/images/icons/contact.svg" alt="">
+          <div class="ms-4">
+            <h6 class="f_B primary-txt fs-20 f-semi">Contacts</h6>
+            <div class="fs-16">
+              <img src="./assets/images/icons/phone.svg" alt="" width="20" class="me-2">
+              <span>+1 530 095 1806</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 offset-md-1">
+        <span class="bo-sec"></span>
+        <h4 class="secondary-txt text-uppercase mb-4 f-bold">Get in touch</h4>
+
+        <form [formGroup]="form">
+          <div class="row mx-0 order-form">
+            <!-- Name -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="name" [ngClass]="{
+                  'is-invalid':
+                  submitted && form.get('name')?.errors}" placeholder="Your Name" class="form-control">
+
+                  <div class="invalid-feedback" *ngIf="form.get('name')?.errors?.required">
+                    this field is required
+                  </div>
+                </div>
+            </div>
+            <!-- Phone -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="tel" formControlName="phone" [pattern]="phonePattern"  [ngClass]="{
+                  'is-invalid':
+                  submitted && form.get('phone')?.errors}" placeholder="Your Phone" class="form-control">
+
+                  <div class="invalid-feedback" *ngIf="form.get('phone')?.errors?.required">
+                    this field is required
+                  </div>
+
+                  <div class="invalid-feedback" *ngIf="form.get('phone')?.errors?.pattern">
+                    phone number must be 10 digits
+                  </div>
+
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="email" formControlName="email" [ngClass]="{
+                  'is-invalid':
+                  submitted && form.get('email')?.errors}" placeholder="Your Email " class="form-control">
+
+                  <div class="invalid-feedback" *ngIf="form.get('email')?.errors?.required">
+                    this field is required
+                  </div>
+
+                  <div class="invalid-feedback" *ngIf="form.get('email')?.errors?.email">
+                    Please enter a valid email!
+                  </div>
+
+                </div>
+            </div>
+            <!-- Subject -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" formControlName="subject" [ngClass]="{
+                  'is-invalid':
+                  submitted && form.get('subject')?.errors}"  placeholder="Subject" class="form-control">
+
+                  <div class="invalid-feedback" *ngIf="form.get('subject')?.errors?.required">
+                    this field is required
+                  </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea placeholder="Message" [ngClass]="{
+                  'is-invalid':
+                  submitted && form.get('message')?.errors}" formControlName="message"  rows="4" class="form-control"></textarea>
+
+                  <div class="invalid-feedback" *ngIf="form.get('message')?.errors?.required">
+                    this field is required
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <button type="submit" value="Submit" (click)="onSubmit()" class="btn btn-send">
+                  <img src="./assets/images/icons/send.svgsvg" alt="" width="25">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<!-- Admin Panel -->
+<div class="admin container pt-5">
+  <!--MY Account -->
+  <div class="row mx-0">
+    <div class="col-md-3">
+      <h4 class="mb-4 f-bold secondary-txt text-uppercase">Admin Panel</h4>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs admin-tabs border-bottom-0" id="myTab" role="tablist">
+
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fs-15 active" id="accounts-tab" data-bs-toggle="tab" data-bs-target="#accounts" type="button" role="tab" aria-controls="accounts" aria-selected="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24.722" height="20.525" viewBox="0 0 24.722 20.525">
+              <g id="Icon_feather-users" data-name="Icon feather-users" transform="translate(-0.75 -3.725)">
+                <path id="Path_83840" data-name="Path 83840" d="M18.389,28.833V26.722A4.222,4.222,0,0,0,14.167,22.5H5.722A4.222,4.222,0,0,0,1.5,26.722v2.111" transform="translate(0 -5.333)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Path_83841" data-name="Path 83841" d="M15.944,8.722A4.222,4.222,0,1,1,11.722,4.5,4.222,4.222,0,0,1,15.944,8.722Z" transform="translate(-1.778)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Path_83842" data-name="Path 83842" d="M33.167,28.891V26.78A4.222,4.222,0,0,0,30,22.7" transform="translate(-8.444 -5.391)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Path_83843" data-name="Path 83843" d="M24,4.7a4.222,4.222,0,0,1,0,8.181" transform="translate(-6.667 -0.058)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+              </g>
+            </svg>
+            Accounts
+            <span class="new">{{newAccountsCount}} new</span>
+          </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fs-15" id="roles-tab" data-bs-toggle="tab" data-bs-target="#roles" type="button" role="tab" aria-controls="roles" aria-selected="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24.134" height="19.5" viewBox="0 0 24.134 19.5">
+              <path id="Icon_awesome-user-cog" data-name="Icon awesome-user-cog"
+                d="M22.059,13.488a4.239,4.239,0,0,0,0-1.539l.932-.538a.262.262,0,0,0,.119-.307,5.422,5.422,0,0,0-1.2-2.074.264.264,0,0,0-.325-.051l-.932.538a4.242,4.242,0,0,0-1.333-.77V7.671a.263.263,0,0,0-.206-.257,5.452,5.452,0,0,0-2.392,0,.263.263,0,0,0-.206.257V8.748a4.242,4.242,0,0,0-1.333.77l-.932-.538a.264.264,0,0,0-.325.051,5.422,5.422,0,0,0-1.2,2.074.266.266,0,0,0,.119.307l.932.538a4.239,4.239,0,0,0,0,1.539l-.932.538a.262.262,0,0,0-.119.307,5.449,5.449,0,0,0,1.2,2.074.264.264,0,0,0,.325.051l.932-.538a4.242,4.242,0,0,0,1.333.77v1.077a.263.263,0,0,0,.206.257,5.452,5.452,0,0,0,2.392,0,.263.263,0,0,0,.206-.257V16.69a4.242,4.242,0,0,0,1.333-.77l.932.538a.264.264,0,0,0,.325-.051,5.422,5.422,0,0,0,1.2-2.074.266.266,0,0,0-.119-.307l-.932-.538Zm-4.137.983a1.752,1.752,0,1,1,1.752-1.752A1.754,1.754,0,0,1,17.922,14.471ZM8.094,9.25A4.625,4.625,0,1,0,3.469,4.625,4.625,4.625,0,0,0,8.094,9.25Zm7.27,8.184c-.083-.043-.166-.094-.246-.141l-.285.166A1.418,1.418,0,0,1,13.08,17.2a6.589,6.589,0,0,1-1.453-2.515,1.413,1.413,0,0,1,.647-1.651l.285-.166q-.005-.141,0-.282l-.285-.166a1.412,1.412,0,0,1-.647-1.651c.033-.1.079-.21.116-.314-.137-.011-.271-.043-.412-.043h-.6a6.29,6.29,0,0,1-5.268,0h-.6A4.858,4.858,0,0,0,0,15.262v1.5A1.735,1.735,0,0,0,1.734,18.5H14.453a1.732,1.732,0,0,0,.983-.307,1.407,1.407,0,0,1-.072-.426Z"
+                transform="translate(0.5 0.5)" fill="none" stroke="#303030" stroke-width="1" />
+            </svg>
+            Roles & Permissions
+          </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <button class="nav-link fs-15" id="resources-tab" data-bs-toggle="tab" data-bs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15.861" height="20.981" viewBox="0 0 15.861 20.981">
+              <path id="Icon_awesome-file-pdf" data-name="Icon awesome-file-pdf"
+                d="M7.276,10.244A3.859,3.859,0,0,1,7.2,8.368C7.532,8.368,7.5,9.844,7.276,10.244Zm-.068,1.888a18.458,18.458,0,0,1-1.136,2.508,14.73,14.73,0,0,1,2.516-.876A5.182,5.182,0,0,1,7.208,12.133ZM3.444,17.125c0,.032.528-.216,1.4-1.608A5.529,5.529,0,0,0,3.444,17.125ZM9.92,6.4h5.44V19.521a.958.958,0,0,1-.96.96H.96a.958.958,0,0,1-.96-.96V.96A.958.958,0,0,1,.96,0h8V5.44A.963.963,0,0,0,9.92,6.4ZM9.6,13.273a4.015,4.015,0,0,1-1.708-2.152A5.75,5.75,0,0,0,8.14,8.552,1,1,0,0,0,6.228,8.28a6.651,6.651,0,0,0,.324,3.08A37.563,37.563,0,0,1,4.92,14.793s0,0-.008,0c-1.084.556-2.944,1.78-2.18,2.72a1.243,1.243,0,0,0,.86.4c.716,0,1.428-.72,2.444-2.472a22.8,22.8,0,0,1,3.16-.928,6.062,6.062,0,0,0,2.56.78,1.035,1.035,0,0,0,.788-1.736c-.556-.544-2.172-.388-2.944-.288ZM15.081,4.2,11.161.28A.959.959,0,0,0,10.48,0h-.24V5.12h5.12V4.876A.957.957,0,0,0,15.081,4.2ZM12.117,14.413c.164-.108-.1-.476-1.712-.36C11.889,14.685,12.117,14.413,12.117,14.413Z"
+                transform="translate(0.25 0.25)" fill="none" stroke="#000" stroke-width="0.5" />
+            </svg>
+            Resources
+          </button>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="col-md-9">
+      <!-- Tab panes -->
+      <div class="tab-content admin-tab-contant">
+        <!-- Accounts Tab-->
+        <div class="tab-pane active" id="accounts" role="tabpanel" aria-labelledby="accounts-tab">
+          <app-accounts (newAccountsCount)="getCount($event)"></app-accounts>
+        </div>
+        <!-- Roles Tab -->
+        <div class="tab-pane" id="roles" role="tabpanel" aria-labelledby="roles-tab">
+          <app-roles></app-roles>
+        </div>
+        <!-- Resources Tab -->
+        <div class="tab-pane" id="resources" role="tabpanel" aria-labelledby="resources-tab">
+          <app-resources></app-resources>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

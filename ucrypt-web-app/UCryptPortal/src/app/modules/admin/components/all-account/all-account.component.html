@@ -1,0 +1,23 @@
+<p-table [value]="data" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-striped">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols" [hidden]="col.hidden" [pSortableColumn]="col.field" style="padding: 0.58em 0.857em">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-account>
+    <tr>
+      <td *ngFor="let col of cols" [hidden]="col.hidden">{{ account[col.field] }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr *ngIf="data.length === 0">
+      <td [attr.colspan]="columns?.length" class="empty-grid-table">
+        <span class="emp-msg">
+          There is no data yet
+        </span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

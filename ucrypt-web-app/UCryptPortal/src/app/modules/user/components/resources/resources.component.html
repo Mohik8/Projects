@@ -1,0 +1,25 @@
+<div class="res-page">
+  <div class="container">
+    <!-- Page Title -->
+    <h2 class="secondary-txt text-center mb-4">Resources</h2>
+
+    <div class="row mx-0">
+      <!-- Repeatable Card -->
+      <div class="col-md-3 mb-3" *ngFor="let file of filesList">
+        <div class="res-card">
+          <img src="./assets/images/icons/file-resource.svg" alt="" class="f-icon">
+          <p class="f-name h-3">{{file?.name}}</p>
+          <button class="btn btn-download" (click)="downloadFile(file)">
+            <span>
+              <img src="./assets/images/icons/pdf-resource.svg" alt="">
+              <span class="secondary-txt ms-2">Download</span>
+            </span>
+            <img src="./assets/images/icons/download-resource.svg" alt="">
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

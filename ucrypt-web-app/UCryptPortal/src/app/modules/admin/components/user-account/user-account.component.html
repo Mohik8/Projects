@@ -1,0 +1,73 @@
+<!-- <p-table [value]="data" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols" [hidden]="col.hidden" [pSortableColumn]="col.field" style="padding: 0.58em 0.857em">
+          {{ col.header }}
+\        </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-account>
+      <tr>
+        <td *ngFor="let col of cols" [hidden]="col.hidden" >{{ account[col.field] }}</td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr *ngIf="data.length === 0">
+      <td [attr.colspan]="columns?.length" class="empty-grid-table">
+        <span class="emp-msg">
+          There is no data yet
+        </span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table> -->
+
+<p-table [value]="data" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-striped">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols" [hidden]="col.hidden" [pSortableColumn]="col.field" style="padding: 0.58em 0.857em">
+        {{ col.header }}
+      </th>
+      <th style="width:20%"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-account let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="account">
+
+      <td *ngFor="let col of cols" [hidden]="col.hidden">
+
+        <span *ngIf="col.field !== 'role'">
+          {{ (col.field === 'role')? '' :account[col.field] }}
+
+        </span>
+
+        <p-cellEditor *ngIf="col.field === 'role'">
+          <ng-template pTemplate="input">
+
+            <select class="form-select" [(ngModel)]="account.role" id="signUpRole">
+              <option *ngFor="let role of roles" [value]='role.value'>
+                {{role.displayName}}
+              </option>
+            </select>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{account[col.field]}}
+          </ng-template>
+        </p-cellEditor>
+
+
+      </td>
+
+      <td>
+        <div class="d-flex align-items-center justify-content-center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow (click)="onRowEditInit(account)" class="action edit">
+            <img src="./assets/images/icons/edit.svg" alt="">
+            Edit Role
+          </button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(account,ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(account, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

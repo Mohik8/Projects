@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35.046" viewBox="0 0 35 35.046">
+  <g id="Group_18616" data-name="Group 18616" transform="translate(-1356 -2195)">
+    <g id="Ellipse_129" data-name="Ellipse 129" transform="translate(1356 2195)" fill="rgba(255,255,255,0)" stroke="#e3141e" stroke-width="1">
+      <circle cx="17.5" cy="17.5" r="17.5" stroke="none"/>
+      <circle cx="17.5" cy="17.5" r="17" fill="none"/>
+    </g>
+    <g id="Icon_feather-dollar-sign" data-name="Icon feather-dollar-sign" transform="translate(1366.815 2198.328)">
+      <path id="Path_83909" data-name="Path 83909" d="M18,1.5V28.954" transform="translate(-10.512 -1.5)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Path_83910" data-name="Path 83910" d="M22.727,7.5H13.368a4.368,4.368,0,1,0,0,8.735h6.24A4.368,4.368,0,0,1,23.975,20.6c-3.606,1.776-5.521,2.633-4.368,4.368H9" transform="translate(-9 -2.508)" fill="none" stroke="#1d4395" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+    <path id="Icon_ionic-md-close-circle" data-name="Icon ionic-md-close-circle" d="M10.5,3.375A7.124,7.124,0,1,0,17.622,10.5,7.1,7.1,0,0,0,10.5,3.375Zm3.562,9.688-1,1L10.5,11.5,7.934,14.06l-1-1L9.5,10.5,6.937,7.934l1-1L10.5,9.5l2.565-2.564,1,1L11.5,10.5Z" transform="translate(1371.292 2212.424)" fill="#e3141e"/>
+  </g>
+</svg>
