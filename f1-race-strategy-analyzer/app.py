@@ -134,6 +134,7 @@ app.layout = html.Div([
                         {"label": "Practice 3", "value": "FP3"},
                     ], value="R", clearable=False),
                 html.Button("LOAD SESSION", id="btn-load", className="btn-primary-f1 w-100"),
+                dcc.Loading(html.Div(id="load-spinner"), type="circle", color="#e8002d"),
             ], className="sidebar-block"),
 
             html.Div(className="sidebar-divider"),
@@ -248,6 +249,7 @@ def populate_races(year):
     Output("status-box","children"),
     Output("store-session-meta","data"),
     Output("stat-row","children"),
+    Output("load-spinner","children"),
     Input("btn-load","n_clicks"),
     State("dd-year","value"), State("dd-race","value"), State("dd-session-type","value"),
     prevent_initial_call=True,
@@ -282,14 +284,14 @@ def load_session(_, year, round_num, stype):
             html.Span(f"{session.event['EventName']} {year} — {stype}",
                       style={"color":"#c0c0d0","fontSize":"0.78rem"}),
         ])
-        return opts, opts, d1, d2, False, status, meta, tiles
+        return opts, opts, d1, d2, False, status, meta, tiles, ""
 
     except Exception as exc:
         err = html.Div([
             html.Span("✕ ", style={"color":"#e8002d"}),
             html.Span(str(exc), style={"color":"#888898","fontSize":"0.75rem"}),
         ])
-        return (no_update,)*4 + (True, err, no_update, no_update)
+        return (no_update,)*4 + (True, err, no_update, no_update, "")
 
 
 @callback(

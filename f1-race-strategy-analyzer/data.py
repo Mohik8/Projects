@@ -27,8 +27,9 @@ COMPOUND_COLOURS = {
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+@lru_cache(maxsize=16)
 def get_season_rounds(year: int) -> list[dict]:
-    """Return list of {round, name} for every race in the season."""
+    """Return list of {round, name} for every race in the season. Cached per year."""
     schedule = fastf1.get_event_schedule(year, include_testing=False)
     rounds = []
     for _, row in schedule.iterrows():
@@ -74,7 +75,7 @@ def get_lap_times(session: fastf1.core.Session, driver: str) -> pd.DataFrame:
     Return per-lap data for a driver:
     LapNumber, LapTime (seconds), Compound, TyreLife, IsPersonalBest, Stint
     """
-    laps = session.laps.pick_driver(driver).pick_quicklaps()
+    laps = session.laps.pick_drivers(driver).pick_quicklaps()
     df = laps[["LapNumber", "LapTime", "Compound", "TyreLife",
                "IsPersonalBest", "Stint", "PitOutTime", "PitInTime"]].copy()
     df["LapTimeSec"] = df["LapTime"].dt.total_seconds()
@@ -87,7 +88,7 @@ def get_tyre_stints(session: fastf1.core.Session, driver: str) -> list[dict]:
     Return tyre stint summary for a driver:
     [{stint, compound, start_lap, end_lap, num_laps}]
     """
-    laps = session.laps.pick_driver(driver)
+    laps = session.laps.pick_drivers(driver)
     stints = []
     for stint_num, group in laps.groupby("Stint"):
         compound = group["Compound"].iloc[0]
@@ -111,7 +112,7 @@ def get_fastest_lap_telemetry(session: fastf1.core.Session, driver: str) -> pd.D
     Return full telemetry for the driver's personal fastest lap:
     Distance, Speed, Throttle, Brake, Gear, RPM, DRS
     """
-    lap = session.laps.pick_driver(driver).pick_fastest()
+    lap = session.laps.pick_drivers(driver).pick_fastest()
     tel = lap.get_telemetry().add_distance()
     return tel[["Distance", "Speed", "Throttle", "Brake", "nGear", "RPM", "DRS"]].copy()
 
