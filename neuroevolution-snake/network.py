@@ -1,6 +1,6 @@
 """
 Minimal feedforward neural network implemented with NumPy only.
-No autograd, no backprop — weights are evolved by the genetic algorithm.
+No autograd, no backprop - weights are evolved by the genetic algorithm.
 """
 import numpy as np
 import copy

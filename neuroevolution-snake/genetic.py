@@ -1,7 +1,7 @@
 """
 Genetic Algorithm for evolving neural network weights.
 
-No gradient descent — fitness is entirely determined by the Snake score.
+No gradient descent - fitness is entirely determined by the Snake score.
 Operators:
   • Elitism      – top-k agents survive unchanged
   • Tournament   – stochastic parent selection
@@ -146,7 +146,7 @@ def evolve_generation(
 ) -> list[NeuralNetwork]:
     """
     Produce the next generation:
-      1. Elitism — copy the top elite_n agents unchanged.
+      1. Elitism - copy the top elite_n agents unchanged.
       2. Fill the rest via tournament selection + crossover + mutation.
     """
     pop_size   = len(population)

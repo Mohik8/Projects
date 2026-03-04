@@ -1,8 +1,10 @@
 # Neuroevolution Snake AI
 
-A genetic algorithm that evolves neural-network weights to play Snake — **no backprop, no gradient descent**. Fitness is determined entirely by how well each agent plays: agents that eat more food and survive longer score higher, and their genetic material is preferentially passed to the next generation.
+A genetic algorithm that evolves neural-network weights to play Snake, with **no backprop, no gradient descent**. Fitness is determined entirely by how well each agent plays: agents that eat more food and survive longer score higher, and their genetic material is preferentially passed to the next generation.
 
 Watch it learn in real time through a **Streamlit** dashboard: live fitness curves, per-generation best agent preview, and a full animated replay of the champion agent.
+
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
@@ -29,13 +31,13 @@ Initial population of N agents
 └──────────────────────────────────────────┘
         │
         ▼
- Next generation — repeat until done
+ Next generation, repeat until done
 ```
 
 ### Neural network
 | Layer | Size | Activation |
 |---|---|---|
-| Input | 24 | — |
+| Input | 24 | none |
 | Hidden 1 | 16 | tanh |
 | Hidden 2 | 16 | tanh |
 | Output | 4 | argmax |
@@ -48,10 +50,10 @@ The **24 inputs** are cast as 8 vision rays (N, NE, E, SE, S, SW, W, NW), each r
 The **4 outputs** map to absolute directions: Up / Right / Down / Left. 180° reversals are suppressed.
 
 ### Genetic operators
-- **Elitism** — top 3 agents survive unchanged (configurable)
-- **Tournament selection** — random k-subset, fittest wins
-- **Uniform crossover** — each gene randomly inherited from one of two parents
-- **Gaussian mutation** — micro-mutations (σ=0.2, 10% of genes) + macro-mutations (σ=1.0, 1% of genes) to escape local optima
+- **Elitism**: top 3 agents survive unchanged (configurable)
+- **Tournament selection**: random k-subset, fittest wins
+- **Uniform crossover**: each gene randomly inherited from one of two parents
+- **Gaussian mutation**: micro-mutations (sigma=0.2, 10% of genes) + macro-mutations (sigma=1.0, 1% of genes) to escape local optima
 
 ---
 

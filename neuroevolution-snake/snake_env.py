@@ -66,7 +66,7 @@ class SnakeEnv:
             self.alive = False
             return self._get_obs(), -1.0, True, self._info()
 
-        # Self collision  (skip tail tip — it will move away)
+        # Self collision  (skip tail tip - it will move away)
         body_list = list(self.body)[:-1]
         if new_head in body_list:
             self.alive = False

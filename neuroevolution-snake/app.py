@@ -1,8 +1,8 @@
 """
-Neuroevolution Snake AI — Streamlit Dashboard
+Neuroevolution Snake AI - Streamlit Dashboard
 =============================================
 A genetic algorithm evolves neural-network weights (no backprop) to
-play Snake.  Watch fitness curves and the best agent improve in real time.
+play Snake. Watch fitness curves and the best agent improve in real time.
 """
 
 import time
@@ -31,20 +31,49 @@ st.set_page_config(
 # Custom dark CSS
 st.markdown("""
 <style>
-  .block-container { padding-top: 1.5rem; }
-  [data-testid="stSidebar"] { background: #0f0f1a; }
-  .stat-card {
-    background: #1a1a2e; border: 1px solid #2a2a4a;
-    border-radius: 10px; padding: 16px 20px; text-align: center;
-    margin-bottom: 8px;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+  .block-container { padding-top: 1.2rem; padding-bottom: 1rem; }
+  [data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #080812 0%, #0d0d1e 100%);
+    border-right: 1px solid rgba(255,255,255,0.05);
   }
-  .stat-value { font-size: 2rem; font-weight: 700; color: #00ff88; }
-  .stat-label { font-size: 0.8rem; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+  .stat-card {
+    background: linear-gradient(135deg, rgba(0,255,136,0.06) 0%, rgba(79,195,247,0.04) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 18px 14px;
+    text-align: center;
+    margin-bottom: 8px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: rgba(0,255,136,0.3); }
+  .stat-value {
+    font-size: 1.9rem; font-weight: 700; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #00ff88, #4fc3f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+  h1 { background: linear-gradient(135deg, #00ff88 0%, #4fc3f7 100%);
+       -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stButton > button {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.2s !important;
+  }
+  .stButton > button:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,255,136,0.25) !important; }
+  [data-testid="stMetric"] {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 12px 16px;
+  }
 </style>
 """, unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────────────────────────────
-# Sidebar — hyperparameters
+# Sidebar - hyperparameters
 # ──────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.title("🐍 NeuroSnake")
@@ -203,8 +232,8 @@ def make_animated_fig(frames: list[np.ndarray], score: int) -> go.Figure:
 # ──────────────────────────────────────────────────────────────────────
 st.title("🐍 Neuroevolution Snake AI")
 st.caption(
-    "A genetic algorithm evolves neural-network weights — no backprop, "
-    "no gradients.  Fitness = score² × 1000 + steps_survived."
+    "A genetic algorithm evolves neural-network weights with no backprop, "
+    "no gradients. Fitness = score\u00b2 x 1000 + steps_survived."
 )
 
 # Stat cards row
