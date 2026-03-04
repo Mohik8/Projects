@@ -128,6 +128,28 @@ cd ucrypt-web-app/UCryptPortal && npm install && ng serve
 
 â†’ [ucrypt-web-app/](ucrypt-web-app/)
 
+
+---
+
+## ?? Neuroevolution Snake AI  `Python · NumPy · Streamlit · Genetic Algorithm`
+
+A genetic algorithm that evolves neural-network weights to play Snake — **no backprop, no gradient descent**. Each agent is a tiny feedforward net (24 ? 16 ? 16 ? 4); the GA selects, crosses over, and mutates weight vectors until agents learn to chase food and dodge walls.
+
+**Highlights**
+- Custom feedforward neural net in pure NumPy — zero ML framework overhead
+- 8-direction vision rays (wall / body / food distance) as the 24-dimensional input
+- Fitness function: `score² × 1000 + steps_survived` — quadratic reward for eating
+- Elitism + tournament selection + uniform crossover + Gaussian micro/macro mutations
+- Real-time Streamlit dashboard: live fitness curves, per-generation agent preview, animated replay of the champion agent
+- Fully configurable sidebar: population size, mutation rate/s, hidden layer widths, grid size
+
+```bash
+cd neuroevolution-snake
+pip install -r requirements.txt
+streamlit run app.py   # opens http://localhost:8501
+```
+
+? [neuroevolution-snake/](neuroevolution-snake/)
 ---
 
 ## Tech matrix
@@ -137,4 +159,6 @@ cd ucrypt-web-app/UCryptPortal && npm install && ng serve
 | Encrypted Password Manager | C | OpenSSL | Security / Systems |
 | AI Document Assistant | Python | LangChain, ChromaDB, Ollama | AI / NLP |
 | Go Task Manager | Go | Bubble Tea, Lip Gloss | CLI / TUI |
-| F1 Race Strategy Analyzer | Python | FastF1, Plotly, Dash | Data Vis / Sports Analytics |`n| UCrypt Encryption Portal | Java / TypeScript | Spring Boot, Angular, Selenium, OWASP ZAP | Cybersecurity / Full-Stack |
+| F1 Race Strategy Analyzer | Python | FastF1, Plotly, Dash | Data Vis / Sports Analytics |
+| Neuroevolution Snake AI | Python | NumPy, Streamlit, Plotly | AI / Neuroevolution |
+| UCrypt Encryption Portal | Java / TypeScript | Spring Boot, Angular, Selenium, OWASP ZAP | Cybersecurity / Full-Stack |
