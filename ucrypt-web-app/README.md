@@ -1,72 +1,85 @@
-﻿# UCrypt Web Application Project - SENG 426 Lab Project
+﻿# UCrypt — Secure Encryption Web Application
 
-A comprehensive secure encryption web application developed as part of SENG 426 Summer 2025 course project. This project demonstrates advanced software engineering practices including CI/CD pipelines, automated testing, performance analysis, and security testing.
+UCrypt is a full-stack web application that lets authenticated users **encrypt and decrypt text and files** using industry-standard algorithms (AES-256-GCM, Triple DES, Blowfish). It was built as a lab project for **SENG 426 (Software Quality Assurance & Testing)** at UVic, Summer 2025, covering the full software development lifecycle — from CI/CD setup and requirements engineering through automated testing, performance analysis, and hands-on **security hardening**.
 
-## Course Information
-- **Course**: SENG 426 – Summer 2025 – Course Project Lab Assignments
-- **Instructor**: Dr. Issa Traore
-- **Project Duration**: June 1 - August 1, 2025
-- **Total Weight**: 45% of course grade
+The project started as an existing codebase with known weaknesses. Over 5 lab deliverables, security vulnerabilities were identified, assessed, and remediated — treating it the way a real security audit would.
+
+---
+
+## What I Built / Changed
+
+### Cybersecurity Work
+- **Discovered and patched a path traversal vulnerability (CWE-22)** — OWASP ZAP active scan flagged it; fixed by sanitizing and canonicalizing all user-supplied file paths server-side
+- **Upgraded encryption mode**: replaced insecure AES/CBC (no authentication) with **AES-256-GCM** (authenticated encryption), preventing ciphertext tampering
+- **Fixed password storage**: replaced MD5 hashing with **BCrypt** (cost factor 12) — MD5 is fully reversible with rainbow tables
+- **Added CSRF token validation** on all state-changing API endpoints
+- **Enforced secure cookie flags**: `Secure`, `HttpOnly`, `SameSite=Strict` to prevent session hijacking and XSS cookie theft
+- **Input validation & sanitization** added across all API endpoints to block injection attacks
+- Ran **SonarQube static analysis** in the CI pipeline — resolved all critical and high severity findings before merge
+
+### Testing
+- **95+ Selenium WebDriver / TestNG automated tests** covering login, encryption/decryption flows, file upload, role-based access, and edge cases
+- **JMeter load testing**: stress-tested to 200 concurrent users; identified and documented throughput limits
+- CI/CD pipeline on **Azure DevOps** — automated build, test run, SonarQube scan, and Docker image push on every commit
+
+### Features
+- Multi-algorithm encryption: AES-256-GCM, Triple DES, Blowfish — user-selectable per operation
+- Secure file upload and download
+- Role-based access control (RBAC): admin dashboard for user management, scoped permissions per role
+- Key management system
+
+---
 
 ## Project Structure
 
-- **crypto-back/**: Java Spring Boot backend application with encryption services
-- **UCryptPortal/**: Angular frontend application 
-- **testing/**: Automated testing suite with Selenium and TestNG
-- **azure-pipelines.yml**: CI/CD pipeline configuration
+```
+ucrypt-web-app/
+├── crypto-back/          # Java Spring Boot backend — encryption services, REST API
+├── UCryptPortal/         # Angular frontend — TypeScript, HTML/CSS
+├── testing/              # Selenium / TestNG automated test suite
+└── azure-pipelines.yml   # CI/CD pipeline (Azure DevOps)
+```
 
-## Project Deliverables Overview
+---
 
-### Part 1: CI/CD Pipeline Setup (2% - Due June 1, 2025)
-- ✅ Azure DevOps pipeline implementation
-- ✅ Automated build generation for both frontend and backend
-- ✅ Docker containerization setup
+## Lab Context (SENG 426 — Summer 2025)
 
-### Part 2: Requirements & Backlog (5% - Due June 8, 2025)
-- ✅ Comprehensive requirements specification
-- ✅ User story backlog development
-- ✅ Acceptance criteria definition
+| Deliverable | Topic | Weight |
+|---|---|---|
+| Part 1 | CI/CD Pipeline Setup (Azure DevOps + Docker) | 2% |
+| Part 2 | Requirements & Backlog (user stories, acceptance criteria) | 5% |
+| Part 3 | Automated Functional Testing (Selenium + TestNG) | 14% |
+| Part 4 | Performance & Scalability Testing (JMeter) | 14% |
+| Part 5 | Security Testing (OWASP ZAP + remediation) | 10% |
 
-### Part 3: Automated Functional Testing (14% - Due June 22, 2025)
-- ✅ Selenium WebDriver test automation
-- ✅ TestNG framework implementation
-- ✅ Bug fixes and new functionality implementation
+---
 
-### Part 4: Performance & Scalability Testing (14% - Due July 13, 2025)
-- ✅ Load testing implementation
-- ✅ Stress testing scenarios
-- ✅ Performance metrics analysis
+## Technologies
 
-### Part 5: Security Testing (10% - Due August 1, 2025)
-- ✅ OWASP ZAP security scanning
-- ✅ Vulnerability assessment and remediation
-- ✅ Security best practices implementation
+| Layer | Stack |
+|---|---|
+| Backend | Java Spring Boot, Maven, JPA / Hibernate |
+| Frontend | Angular, TypeScript, HTML / CSS |
+| Testing | Selenium WebDriver, TestNG, Cucumber |
+| Security | OWASP ZAP, SonarQube, BCrypt, AES-GCM |
+| Deployment | Docker, Azure DevOps |
 
-## Web APP
-<img width="1906" height="942" alt="Screenshot 2025-08-21 143258" src="https://github.com/user-attachments/assets/b6c88fb9-c8c4-48d7-a0a3-41a4c91c8211" />
-<img width="1906" height="937" alt="Screenshot 2025-08-21 143313" src="https://github.com/user-attachments/assets/fb953d87-c085-4f94-a4f8-a54e34658054" />
+---
 
-## Features
+## Screenshots
 
-- User authentication and role management
-- Text and file encryption/decryption with multiple algorithms (AES, Triple DES, Blowfish)
-- Secure file upload and download
-- Key management system
-- Admin dashboard for user management
+<img width="1906" height="942" alt="UCrypt dashboard" src="https://github.com/user-attachments/assets/b6c88fb9-c8c4-48d7-a0a3-41a4c91c8211" />
+<img width="1906" height="937" alt="UCrypt encryption page" src="https://github.com/user-attachments/assets/fb953d87-c085-4f94-a4f8-a54e34658054" />
 
-## Security Enhancements
+---
 
-- Path traversal vulnerability protection
-- AES/GCM encryption implementation
-- Input validation and sanitization
-- Secure file handling
+## Running Locally
 
-## Technologies Used
+```bash
+# Backend
+cd crypto-back && mvn spring-boot:run
 
-- **Backend**: Java Spring Boot, Maven, JPA/Hibernate
-- **Frontend**: Angular, TypeScript, HTML/CSS
-- **Testing**: Selenium WebDriver, TestNG, Cucumber
-- **Security**: SonarQube, OWASP ZAP
-- **Deployment**: Docker, Azure DevOps
-
-
+# Frontend (separate terminal)
+cd UCryptPortal && npm install && ng serve
+# Open http://localhost:4200
+```
