@@ -220,6 +220,11 @@ body {
 .Select.is-focused > .Select-control { border-color: #e8002d88 !important; box-shadow: none !important; }
 .Select-value-label, .Select-placeholder { color: #9898b0 !important; font-size: 0.82rem !important; }
 .Select-single > .Select-control .Select-value .Select-value-label { color: #dcdce8 !important; }
+.Select-input, .Select-input input {
+  color: #dcdce8 !important;
+  background: transparent !important;
+  font-size: 0.82rem !important;
+}
 .Select-menu-outer { background: #0f0f1a !important; border: 1px solid #252535 !important; border-top: none !important; z-index: 9999 !important; }
 .Select-option { background: transparent !important; color: #9898b0 !important; font-size: 0.82rem !important; padding: 8px 12px !important; }
 .Select-option:hover, .Select-option.is-focused { background: rgba(232,0,45,0.1) !important; color: #fff !important; }
@@ -519,8 +524,11 @@ body {
   border-color: #2a2a3e !important;
   color: #e0e0e0 !important;
 }
-
 .Select-value-label { color: #e0e0e0 !important; }
+.Select-input, .Select-input input {
+  color: #e0e0e0 !important;
+  background: transparent !important;
+}
 .Select-menu { background: #0f0f18 !important; }
 .Select-option { color: #e0e0e0 !important; background: #0f0f18 !important; }
 .Select-option:hover, .Select-option.is-focused {
