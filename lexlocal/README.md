@@ -1,4 +1,4 @@
-# LexLocal — Vancouver Island Bylaw Intelligence
+# LexLocal - Vancouver Island Bylaw Intelligence
 
 Ask plain-English questions about municipal bylaws across 6 Vancouver Island municipalities. If your activity violates something, a **Genetic Algorithm** evolves the minimum parameter changes needed to make it compliant.
 
